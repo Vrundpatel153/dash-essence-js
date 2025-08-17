@@ -85,7 +85,7 @@ export default function SettingsPage() {
         <p className="text-muted">
           Manage your app preferences and data
         </p>
-      </div>
+      </motion.div>
 
       <div className="space-y-6">
         {/* Data Management */}
