@@ -1,12 +1,11 @@
-import type { Config } from "tailwindcss";
-
+/** @type {import('tailwindcss').Config} */
 export default {
 	darkMode: ["class"],
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./pages/**/*.{js,jsx}",
+		"./components/**/*.{js,jsx}",
+		"./app/**/*.{js,jsx}",
+		"./src/**/*.{js,jsx}",
 	],
 	prefix: "",
 	theme: {
@@ -18,6 +17,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				heading: ['Poppins', 'sans-serif'],
+				body: ['Inter', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -52,16 +55,22 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				// Custom theme colors
+				navy: {
+					deep: 'hsl(var(--navy-deep))',
+					surface: 'hsl(var(--navy-surface))',
+				},
+				text: {
+					primary: 'hsl(var(--text-primary))',
+					muted: 'hsl(var(--text-muted))',
+					inverse: 'hsl(var(--text-inverse))',
+				},
+				danger: 'hsl(var(--danger))',
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-balance': 'var(--gradient-balance)',
+				'gradient-glass': 'var(--gradient-glass)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -93,4 +102,4 @@ export default {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};

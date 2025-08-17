@@ -1,96 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Expense Tracker Design System - Deep Navy Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Deep Navy Theme Colors (HSL) */
+    --navy-deep: 225 75% 8%;           /* #071124 - Main background */
+    --navy-surface: 210 50% 12%;       /* #0c2030 - Card fallback */
+    --navy-glass: 0 0% 100% / 0.04;    /* Glass overlay */
+    
+    /* Accent Colors */
+    --accent-purple: 256 65% 55%;      /* #5D3FD3 */
+    --accent-pink: 333 100% 65%;       /* #FF4D8A */
+    --accent-teal: 174 100% 39%;       /* #00C2A8 */
+    --danger: 0 82% 70%;               /* #FF6B6B */
+    
+    /* Text Colors */
+    --text-primary: 220 60% 92%;       /* #E6EEF8 */
+    --text-muted: 218 25% 68%;         /* #A8B3C6 */
+    --text-inverse: 225 75% 8%;        /* Dark text on light */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--accent-purple)), hsl(var(--accent-pink)));
+    --gradient-balance: linear-gradient(135deg, hsl(var(--accent-purple)) 0%, hsl(var(--accent-pink)) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    
+    /* Design System Tokens */
+    --background: var(--navy-deep);
+    --foreground: var(--text-primary);
+    --card: var(--navy-surface);
+    --card-foreground: var(--text-primary);
+    --primary: var(--accent-teal);
+    --primary-foreground: var(--navy-deep);
+    --secondary: var(--navy-surface);
+    --secondary-foreground: var(--text-primary);
+    --muted: var(--text-muted);
+    --muted-foreground: var(--text-muted);
+    --accent: var(--accent-purple);
+    --accent-foreground: var(--text-primary);
+    --destructive: var(--danger);
+    --destructive-foreground: var(--text-primary);
+    --border: 218 25% 25%;
+    --input: var(--navy-surface);
+    --ring: var(--accent-teal);
+    --radius: 0.75rem;
+    
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    @apply scroll-smooth;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background: hsl(var(--navy-deep));
+    color: hsl(var(--text-primary));
+  }
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  
+  h1 {
+    @apply text-2xl font-semibold;
+  }
+  
+  h2 {
+    @apply text-xl font-medium;
+  }
+  
+  h3 {
+    @apply text-base font-medium;
+  }
+}
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+@layer components {
+  /* Glass Card Component */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  /* Balance Card with Gradient */
+  .balance-card {
+    background: var(--gradient-balance);
+    @apply glass-card text-white;
+  }
+  
+  /* Icon Rail Styling */
+  .icon-rail {
+    @apply glass-card;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Animations */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
