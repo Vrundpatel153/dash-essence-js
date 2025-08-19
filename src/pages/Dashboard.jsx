@@ -89,13 +89,6 @@ export default function Dashboard() {
           </p>
         </div>
         
-        <Link
-          to="/transactions/new"
-          className="mt-4 sm:mt-0 inline-flex items-center space-x-2 bg-gradient-primary hover:opacity-90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add Transaction</span>
-        </Link>
       </motion.div>
 
       {/* Main Grid */}

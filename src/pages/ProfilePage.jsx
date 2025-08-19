@@ -7,11 +7,7 @@ import { toast } from 'sonner';
 
 const currencies = [
   { value: 'USD', label: 'US Dollar (USD)' },
-  { value: 'EUR', label: 'Euro (EUR)' },
-  { value: 'GBP', label: 'British Pound (GBP)' },
-  { value: 'JPY', label: 'Japanese Yen (JPY)' },
-  { value: 'CAD', label: 'Canadian Dollar (CAD)' },
-  { value: 'AUD', label: 'Australian Dollar (AUD)' },
+  { value: 'INR', label: 'Indian Rupee (INR)' },
 ];
 
 export default function ProfilePage() {
@@ -192,7 +188,7 @@ export default function ProfilePage() {
         </form>
       </motion.div>
 
-      {/* Security Section */}
+        {/* Security Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -208,16 +204,6 @@ export default function ProfilePage() {
             </div>
             <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
               Change Password
-            </button>
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-foreground">Two-Factor Authentication</p>
-              <p className="text-sm text-muted">Not enabled</p>
-            </div>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
-              Enable 2FA
             </button>
           </div>
         </div>

@@ -107,28 +107,6 @@ export default function Sidebar({ collapsed, onToggle }) {
           ))}
         </ul>
       </nav>
-
-      {/* Quick Add Button */}
-      <div className="p-2 border-t border-border/50">
-        <NavLink
-          to="/transactions/new"
-          className="group flex items-center justify-center px-3 py-2.5 bg-gradient-primary hover:opacity-90 text-white font-medium rounded-lg transition-all duration-200 shadow-sm"
-        >
-          <Plus className={`w-5 h-5 ${collapsed ? '' : 'mr-2'}`} />
-          <AnimatePresence mode="wait">
-            {!collapsed && (
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                Add Transaction
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </NavLink>
-      </div>
     </motion.div>
   );
 }

@@ -142,13 +142,6 @@ export default function TransactionsPage() {
             <span>Export</span>
           </button>
           
-          <Link
-            to="/transactions/new"
-            className="inline-flex items-center space-x-2 bg-gradient-primary hover:opacity-90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add Transaction</span>
-          </Link>
         </div>
       </motion.div>
 
@@ -391,15 +384,6 @@ export default function TransactionsPage() {
                 : 'Start by adding your first transaction'
               }
             </p>
-            {!hasActiveFilters && (
-              <Link
-                to="/transactions/new"
-                className="inline-flex items-center space-x-2 bg-gradient-primary hover:opacity-90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Transaction</span>
-              </Link>
-            )}
           </div>
         )}
       </motion.div>

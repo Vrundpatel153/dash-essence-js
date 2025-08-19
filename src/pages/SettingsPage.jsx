@@ -3,12 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   RefreshCw, 
   Download, 
-  Upload, 
   Shield, 
-  Bell, 
-  Moon, 
-  Sun,
-  Trash2,
   AlertTriangle
 } from 'lucide-react';
 import { resetDemoData } from '../seed/seedData';
@@ -55,20 +50,6 @@ export default function SettingsPage() {
     }
   };
 
-  const handleImportData = () => {
-    // Create file input
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.csv';
-    input.onchange = (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        // For now, just show a message
-        toast.info('CSV import feature coming soon!');
-      }
-    };
-    input.click();
-  };
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -100,7 +81,7 @@ export default function SettingsPage() {
             <span>Data Management</span>
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {/* Export Data */}
             <div className="bg-white/5 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-3">
@@ -120,24 +101,6 @@ export default function SettingsPage() {
               </button>
             </div>
 
-            {/* Import Data */}
-            <div className="bg-white/5 rounded-lg p-4">
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <Upload className="w-5 h-5 text-green-400" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Import Data</h4>
-                  <p className="text-sm text-muted">Upload transactions from CSV</p>
-                </div>
-              </div>
-              <button
-                onClick={handleImportData}
-                className="w-full bg-green-500/20 hover:bg-green-500/30 text-green-400 py-2 px-4 rounded-lg font-medium transition-colors"
-              >
-                Import CSV
-              </button>
-            </div>
           </div>
 
           {/* Reset Demo Data */}
@@ -182,78 +145,12 @@ export default function SettingsPage() {
           </div>
         </motion.div>
 
-        {/* App Preferences */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="glass-card p-6"
-        >
-          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center space-x-2">
-            <Bell className="w-5 h-5" />
-            <span>Preferences</span>
-          </h3>
-
-          <div className="space-y-4">
-            {/* Notifications */}
-            <div className="flex items-center justify-between py-3 border-b border-border/30">
-              <div>
-                <p className="font-medium text-foreground">Push Notifications</p>
-                <p className="text-sm text-muted">Get notified about important updates</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-
-            {/* Theme */}
-            <div className="flex items-center justify-between py-3 border-b border-border/30">
-              <div>
-                <p className="font-medium text-foreground">Theme</p>
-                <p className="text-sm text-muted">Choose your preferred theme</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button className="p-2 bg-white/10 rounded-lg">
-                  <Sun className="w-4 h-4 text-muted" />
-                </button>
-                <button className="p-2 bg-primary rounded-lg">
-                  <Moon className="w-4 h-4 text-white" />
-                </button>
-              </div>
-            </div>
-
-            {/* Currency Display */}
-            <div className="flex items-center justify-between py-3 border-b border-border/30">
-              <div>
-                <p className="font-medium text-foreground">Currency Display</p>
-                <p className="text-sm text-muted">Show currency symbols</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-
-            {/* Auto-categorization */}
-            <div className="flex items-center justify-between py-3">
-              <div>
-                <p className="font-medium text-foreground">Smart Categorization</p>
-                <p className="text-sm text-muted">Automatically suggest categories</p>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" />
-                <div className="w-11 h-6 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-          </div>
-        </motion.div>
 
         {/* About */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="glass-card p-6"
         >
           <h3 className="text-lg font-semibold text-foreground mb-4">About</h3>

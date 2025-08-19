@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Plus, Search, Bell, User, LogOut } from 'lucide-react';
+import { Menu, Plus, Bell, User, LogOut, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTheme } from 'next-themes';
 
 export default function TopBar({ onSidebarToggle, sidebarCollapsed }) {
   const { currentUser, logout } = useAuth();
+  const { theme, setTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
@@ -46,6 +48,18 @@ export default function TopBar({ onSidebarToggle, sidebarCollapsed }) {
           >
             <Plus className="w-5 h-5" />
           </Link>
+
+          {/* Theme Toggle */}
+          <button 
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5 text-muted" />
+            ) : (
+              <Moon className="w-5 h-5 text-muted" />
+            )}
+          </button>
 
           {/* Notifications */}
           <button className="p-2 rounded-lg hover:bg-white/5 transition-colors relative">
