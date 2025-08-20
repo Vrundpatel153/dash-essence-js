@@ -40,6 +40,7 @@ export function AuthProvider({ children }) {
         email: user.email,
         avatarUrl: user.avatarUrl,
         preferredCurrency: user.preferredCurrency,
+        expenseLimit: user.expenseLimit || null,
       };
 
       safeLocalStorageSet(STORAGE_KEYS.CURRENT_USER, sessionUser);
@@ -94,6 +95,7 @@ export function AuthProvider({ children }) {
         email: newUser.email,
         avatarUrl: newUser.avatarUrl,
         preferredCurrency: newUser.preferredCurrency,
+        expenseLimit: null,
       };
 
       safeLocalStorageSet(STORAGE_KEYS.CURRENT_USER, sessionUser);
@@ -135,6 +137,7 @@ export function AuthProvider({ children }) {
         email: profileData.email || currentUser.email,
         avatarUrl: profileData.avatarUrl || currentUser.avatarUrl,
         preferredCurrency: profileData.preferredCurrency || currentUser.preferredCurrency,
+        expenseLimit: profileData.expenseLimit !== undefined ? profileData.expenseLimit : currentUser.expenseLimit,
       };
 
       safeLocalStorageSet(STORAGE_KEYS.CURRENT_USER, updatedSessionUser);
