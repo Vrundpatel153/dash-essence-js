@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  RefreshCw, 
-  Download, 
   Shield, 
   AlertTriangle,
   Target,
   DollarSign
 } from 'lucide-react';
 import { resetDemoData } from '../seed/seedData';
-import { exportTransactionsToCSV, getTransactions, getCategories, formatCurrency } from '../utils/transactionUtils';
+import { formatCurrency } from '../utils/transactionUtils';
 import { useAuth } from '../context/AuthContext';
 import { useExpenseLimit } from '../hooks/useExpenseLimit';
 import { toast } from 'sonner';
@@ -147,7 +145,6 @@ export default function SettingsPage() {
             <span>Data Management</span>
           </h3>
 
-          <div className="grid grid-cols-1 gap-4">
 
           {/* Reset Demo Data */}
           <div className="mt-6 pt-6 border-t border-border/50">
