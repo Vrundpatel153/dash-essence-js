@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTheme } from 'next-themes';
 
-export default function TopBar({ onSidebarToggle, sidebarCollapsed }) {
+export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const { currentUser, logout } = useAuth();
   const { theme, setTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
