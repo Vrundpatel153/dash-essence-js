@@ -4,94 +4,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Expense Tracker Design System - Professional Dual Theme */
+/* Expense Tracker Design System - Deep Navy Theme */
 
 @layer base {
   :root {
-    /* Dark Theme - Refined Deep Navy */
-    --navy-deep: 225 20% 8%;           /* #13151a - Softer dark background */
-    --navy-surface: 225 15% 12%;       /* #1a1d24 - Elevated surfaces */
-    --navy-elevated: 225 12% 16%;      /* #242831 - Higher elevation */
+    /* Deep Navy Theme Colors (HSL) */
+    --navy-deep: 225 75% 8%;           /* #071124 - Main background */
+    --navy-surface: 210 50% 12%;       /* #0c2030 - Card fallback */
+    --navy-glass: 0 0% 100% / 0.04;    /* Glass overlay */
     
-    /* Light Theme - Warm Neutrals */
-    --pearl-white: 210 20% 98%;        /* #fafbfc - Main light background */
-    --cream-surface: 210 15% 96%;      /* #f4f6f8 - Light surfaces */
-    --mist-elevated: 210 12% 94%;      /* #eef2f6 - Light elevated */
-    
-    /* Brand Colors - Professional Palette */
-    --brand-primary: 245 75% 60%;      /* #4F46E5 - Professional indigo */
-    --brand-secondary: 262 83% 58%;    /* #7C3AED - Rich violet */
-    --brand-accent: 199 89% 48%;       /* #0EA5E9 - Sky blue */
-    --success: 142 76% 36%;            /* #059669 - Forest green */
-    --warning: 38 92% 50%;             /* #F59E0B - Amber */
-    --danger: 0 84% 60%;               /* #EF4444 - Red */
+    /* Accent Colors */
+    --accent-purple: 256 65% 55%;      /* #5D3FD3 */
+    --accent-pink: 333 100% 65%;       /* #FF4D8A */
+    --accent-teal: 174 100% 39%;       /* #00C2A8 */
+    --danger: 0 82% 70%;               /* #FF6B6B */
     
     /* Text Colors */
-    --text-primary-dark: 210 40% 98%;  /* #f9fafb - Primary text dark mode */
-    --text-secondary-dark: 210 15% 73%; /* #94a3b8 - Secondary text dark mode */
-    --text-tertiary-dark: 210 10% 58%; /* #64748b - Tertiary text dark mode */
+    --text-primary: 220 60% 92%;       /* #E6EEF8 */
+    --text-muted: 218 25% 68%;         /* #A8B3C6 */
+    --text-inverse: 225 75% 8%;        /* Dark text on light */
     
-    --text-primary-light: 225 20% 20%; /* #1e293b - Primary text light mode */
-    --text-secondary-light: 215 16% 47%; /* #64748b - Secondary text light mode */
-    --text-tertiary-light: 215 13% 65%; /* #94a3b8 - Tertiary text light mode */
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--accent-purple)), hsl(var(--accent-pink)));
+    --gradient-balance: linear-gradient(135deg, hsl(var(--accent-purple)) 0%, hsl(var(--accent-pink)) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     
-    /* Gradients - Sophisticated */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(var(--brand-secondary)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--brand-accent)), hsl(var(--brand-primary)));
-    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(var(--brand-accent)));
-    --gradient-glass-dark: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
-    --gradient-glass-light: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
-    
-    /* Dark Theme Tokens */
+    /* Design System Tokens */
     --background: var(--navy-deep);
-    --foreground: var(--text-primary-dark);
+    --foreground: var(--text-primary);
     --card: var(--navy-surface);
-    --card-foreground: var(--text-primary-dark);
-    --primary: var(--brand-primary);
-    --primary-foreground: var(--text-primary-dark);
-    --secondary: var(--navy-elevated);
-    --secondary-foreground: var(--text-primary-dark);
-    --muted: var(--text-tertiary-dark);
-    --muted-foreground: var(--text-secondary-dark);
-    --accent: var(--brand-accent);
-    --accent-foreground: var(--text-primary-dark);
+    --card-foreground: var(--text-primary);
+    --primary: var(--accent-teal);
+    --primary-foreground: var(--navy-deep);
+    --secondary: var(--navy-surface);
+    --secondary-foreground: var(--text-primary);
+    --muted: var(--text-muted);
+    --muted-foreground: var(--text-muted);
+    --accent: var(--accent-purple);
+    --accent-foreground: var(--text-primary);
     --destructive: var(--danger);
-    --destructive-foreground: var(--text-primary-dark);
-    --border: 210 10% 25%;
-    --input: var(--navy-elevated);
-    --ring: var(--brand-primary);
+    --destructive-foreground: var(--text-primary);
+    --border: 218 25% 25%;
+    --input: var(--navy-surface);
+    --ring: var(--accent-teal);
     --radius: 0.75rem;
     
-    /* Glass Effects - Dark */
-    --glass-bg: rgba(255, 255, 255, 0.06);
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.04);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  }
-
-  .light {
-    /* Light Theme Tokens */
-    --background: var(--pearl-white);
-    --foreground: var(--text-primary-light);
-    --card: var(--cream-surface);
-    --card-foreground: var(--text-primary-light);
-    --primary: var(--brand-primary);
-    --primary-foreground: white;
-    --secondary: var(--mist-elevated);
-    --secondary-foreground: var(--text-primary-light);
-    --muted: var(--text-tertiary-light);
-    --muted-foreground: var(--text-secondary-light);
-    --accent: var(--brand-accent);
-    --accent-foreground: white;
-    --destructive: var(--danger);
-    --destructive-foreground: white;
-    --border: 215 13% 88%;
-    --input: var(--mist-elevated);
-    --ring: var(--brand-primary);
-    
-    /* Glass Effects - Light */
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -106,6 +67,8 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    background: hsl(var(--navy-deep));
+    color: hsl(var(--text-primary));
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -126,101 +89,48 @@
 }
 
 @layer components {
-  /* Enhanced Glass Card Components */
+  /* Glass Card Component */
   .glass-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow);
-    position: relative;
   }
   
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-glass-dark);
-    border-radius: inherit;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  
-  .light .glass-card::before {
-    background: var(--gradient-glass-light);
-    opacity: 0.3;
-  }
-  
-  /* Enhanced Balance Card */
+  /* Balance Card with Gradient */
   .balance-card {
-    background: var(--gradient-primary);
+    background: var(--gradient-balance);
     @apply glass-card text-white;
-    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .balance-card::before {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-  }
-  
-  /* Icon Rail - Refined */
+  /* Icon Rail Styling */
   .icon-rail {
     @apply glass-card;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
   }
   
-  .light .icon-rail {
-    background: rgba(255, 255, 255, 0.9);
-  }
-  
-  /* Enhanced Gradient Text */
+  /* Gradient Text */
   .gradient-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 600;
   }
   
-  /* Notification Badge */
-  .notification-badge {
-    @apply absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full;
-    background: var(--gradient-accent);
-    animation: pulse-glow 2s infinite;
-  }
-  
-  /* Professional Button Variants */
-  .btn-premium {
-    background: var(--gradient-primary);
-    @apply text-white border-0 hover:opacity-90 transition-all duration-300;
-    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
-  }
-  
-  .btn-glass {
-    @apply glass-card hover:bg-white/10 transition-all duration-300;
-  }
-  
-  .light .btn-glass {
-    @apply hover:bg-black/5;
-  }
-  
-  /* Enhanced Animations */
+  /* Animations */
   .animate-slide-up {
-    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.3s ease-out;
   }
   
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: fadeIn 0.2s ease-out;
   }
   
   @keyframes slideUp {
     from {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -236,26 +146,14 @@
       opacity: 1;
     }
   }
-  
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-  
-  @keyframes pulse-glow {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.1);
-    }
+
+  body {
+    @apply bg-background text-foreground;
   }
 }

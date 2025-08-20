@@ -1,23 +1,20 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
+  RefreshCw, 
+  Download, 
   Shield, 
-  AlertTriangle,
-  Target,
-  DollarSign
+  AlertTriangle
 } from 'lucide-react';
 import { resetDemoData } from '../seed/seedData';
-import { formatCurrency } from '../utils/transactionUtils';
+import { exportTransactionsToCSV, getTransactions, getCategories } from '../utils/transactionUtils';
 import { useAuth } from '../context/AuthContext';
-import { useExpenseLimit } from '../hooks/useExpenseLimit';
 import { toast } from 'sonner';
 
 export default function SettingsPage() {
-  const { currentUser, updateProfile } = useAuth();
-  const { currentExpenses, percentageUsed, hasLimit } = useExpenseLimit();
+  const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [expenseLimit, setExpenseLimit] = useState(currentUser?.expenseLimit || '');
 
   const handleResetDemoData = async () => {
     setLoading(true);
@@ -41,25 +38,15 @@ export default function SettingsPage() {
     setShowResetConfirm(false);
   };
 
-  const handleSaveExpenseLimit = async () => {
-    try {
-      const limitValue = expenseLimit === '' ? null : parseFloat(expenseLimit);
-      
-      if (limitValue !== null && (isNaN(limitValue) || limitValue <= 0)) {
-        toast.error('Please enter a valid expense limit');
-        return;
-      }
-
-      const result = await updateProfile({ expenseLimit: limitValue });
-      
-      if (result.success) {
-        toast.success(limitValue ? 'Expense limit updated successfully!' : 'Expense limit removed successfully!');
-      } else {
-        toast.error(result.error || 'Failed to update expense limit');
-      }
-    } catch (error) {
-      console.error('Save expense limit error:', error);
-      toast.error('An error occurred while updating expense limit');
+  const handleExportData = () => {
+    const transactions = getTransactions(currentUser?.id);
+    const categories = getCategories();
+    const result = exportTransactionsToCSV(transactions, categories);
+    
+    if (result.success) {
+      toast.success('Data exported successfully!');
+    } else {
+      toast.error('Failed to export data');
     }
   };
 
@@ -82,7 +69,7 @@ export default function SettingsPage() {
       </motion.div>
 
       <div className="space-y-6">
-        {/* Expense Limit Settings */}
+        {/* Data Management */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,61 +77,31 @@ export default function SettingsPage() {
           className="glass-card p-6"
         >
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center space-x-2">
-            <Target className="w-5 h-5" />
-            <span>Expense Limit</span>
-          </h3>
-
-          <div className="space-y-4">
-            <div className="bg-white/5 rounded-lg p-4">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-green-400" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Monthly Expense Limit</h4>
-                  <p className="text-sm text-muted">Set a monthly spending limit to track your budget</p>
-                </div>
-              </div>
-              
-              <div className="flex space-x-3">
-                <input
-                  type="number"
-                  placeholder="Enter amount (e.g., 1000)"
-                  value={expenseLimit}
-                  onChange={(e) => setExpenseLimit(e.target.value)}
-                  className="flex-1 bg-input border border-border/50 rounded-lg px-3 py-2 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <button
-                  onClick={handleSaveExpenseLimit}
-                  className="bg-green-500/20 hover:bg-green-500/30 text-green-400 py-2 px-4 rounded-lg font-medium transition-colors"
-                >
-                  Save
-                </button>
-              </div>
-              
-              {hasLimit && (
-                <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                  <p className="text-sm text-blue-400">
-                    Current month: {formatCurrency(currentExpenses)} of {formatCurrency((currentUser?.expenseLimit || 0) * 100)} ({percentageUsed.toFixed(0)}% used)
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Data Management */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="glass-card p-6"
-        >
-          <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center space-x-2">
             <Shield className="w-5 h-5" />
             <span>Data Management</span>
           </h3>
 
+          <div className="grid grid-cols-1 gap-4">
+            {/* Export Data */}
+            <div className="bg-white/5 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+                  <Download className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground">Export Data</h4>
+                  <p className="text-sm text-muted">Download your transactions as CSV</p>
+                </div>
+              </div>
+              <button
+                onClick={handleExportData}
+                className="w-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 py-2 px-4 rounded-lg font-medium transition-colors"
+              >
+                Export CSV
+              </button>
+            </div>
+
+          </div>
 
           {/* Reset Demo Data */}
           <div className="mt-6 pt-6 border-t border-border/50">
@@ -193,7 +150,7 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="glass-card p-6"
         >
           <h3 className="text-lg font-semibold text-foreground mb-4">About</h3>
