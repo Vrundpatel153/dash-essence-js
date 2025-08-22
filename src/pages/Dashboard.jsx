@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Plus, Receipt, TrendingUp, TrendingDown, User, ArrowRight, BarChart3, Wallet, Target } from 'lucide-react';
+import { Plus, Receipt, TrendingUp, TrendingDown, User, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { 
   getTransactions, 
@@ -54,53 +54,47 @@ export default function Dashboard() {
     {
       label: 'Total Transactions',
       value: transactions.length,
-      icon: BarChart3,
-      gradient: 'from-aurora-purple to-aurora-rose',
-      iconBg: 'bg-aurora-purple/20',
-      iconColor: 'text-aurora-purple',
+      icon: Receipt,
+      color: 'text-blue-400',
     },
     {
       label: 'This Month Income',
       value: formatCurrency(income),
       icon: TrendingUp,
-      gradient: 'from-aurora-emerald to-aurora-cyan',
-      iconBg: 'bg-aurora-emerald/20',
-      iconColor: 'text-aurora-emerald',
+      color: 'text-green-400',
     },
     {
       label: 'This Month Expenses',
       value: formatCurrency(expenses),
       icon: TrendingDown,
-      gradient: 'from-aurora-rose to-aurora-crimson',
-      iconBg: 'bg-aurora-rose/20',
-      iconColor: 'text-aurora-rose',
+      color: 'text-red-400',
     },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Dashboard Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         className="flex flex-col sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold gradient-text mb-2">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">
             Dashboard
           </h1>
-          <p className="text-text-secondary text-lg">
-            Welcome back, <span className="text-primary font-medium">{currentUser?.name}</span>. 
-            Here's your financial overview.
+          <p className="text-muted mt-1">
+            Welcome back, {currentUser?.name}. Here's your financial overview.
           </p>
         </div>
+        
       </motion.div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column */}
-        <div className="xl:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           {/* Balance Card */}
           <BalanceCard balance={balance} income={income} expenses={expenses} />
 
@@ -111,167 +105,139 @@ export default function Dashboard() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
             {quickStats.map((stat, index) => (
-              <motion.div 
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="interactive-card p-6 group"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`p-3 rounded-2xl ${stat.iconBg} group-hover:scale-110 transition-transform duration-300`}>
-                    <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
+              <div key={stat.label} className="glass-card p-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg bg-white/10`}>
+                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary/50 to-accent/50 animate-pulse" />
+                  <div>
+                    <p className="text-sm text-muted">{stat.label}</p>
+                    <p className="font-semibold text-foreground">{stat.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-text-secondary font-medium mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold text-foreground group-hover:scale-105 transition-transform duration-300">
-                    {stat.value}
-                  </p>
-                </div>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         </div>
 
         {/* Right Column */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Recent Transactions */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="glass-card p-8"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="glass-card p-6"
           >
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <Receipt className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="font-heading font-semibold text-foreground text-xl">
-                  Recent Activity
-                </h3>
-              </div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading font-semibold text-foreground">
+                Recent Transactions
+              </h3>
               <Link
                 to="/transactions"
-                className="group flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium transition-colors"
+                className="text-primary hover:text-primary/80 text-sm font-medium flex items-center space-x-1 transition-colors"
               >
                 <span>View all</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {recentTransactions.length > 0 ? (
                 recentTransactions.map((transaction, index) => (
                   <motion.div
                     key={transaction.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center justify-between p-4 rounded-2xl bg-surface/50 border border-border/50 hover:bg-surface/80 transition-all duration-300 group"
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="flex items-center justify-between py-2 border-b border-border/30 last:border-b-0"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-3 rounded-xl ${
+                    <div className="flex items-center space-x-3">
+                      <div className={`p-2 rounded-full ${
                         transaction.type === 'income' 
-                          ? 'bg-aurora-emerald/10 border border-aurora-emerald/20' 
-                          : 'bg-aurora-rose/10 border border-aurora-rose/20'
+                          ? 'bg-green-500/20' 
+                          : 'bg-red-500/20'
                       }`}>
                         {transaction.type === 'income' ? (
-                          <TrendingUp className="w-4 h-4 text-aurora-emerald" />
+                          <TrendingUp className="w-4 h-4 text-green-400" />
                         ) : (
-                          <TrendingDown className="w-4 h-4 text-aurora-rose" />
+                          <TrendingDown className="w-4 h-4 text-red-400" />
                         )}
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <p className="text-sm font-medium text-foreground">
                           {transaction.note || 'No description'}
                         </p>
-                        <p className="text-xs text-text-secondary">
-                          {categoryMap[transaction.categoryId]?.name || 'Unknown'} • {new Date(transaction.date).toLocaleDateString()}
+                        <p className="text-xs text-muted">
+                          {categoryMap[transaction.categoryId]?.name || 'Unknown'}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className={`text-base font-bold ${
+                      <p className={`text-sm font-semibold ${
                         transaction.type === 'income' 
-                          ? 'text-aurora-emerald' 
-                          : 'text-aurora-rose'
+                          ? 'text-green-400' 
+                          : 'text-red-400'
                       }`}>
                         {transaction.type === 'income' ? '+' : '-'}
                         {formatCurrency(transaction.amountMinor)}
+                      </p>
+                      <p className="text-xs text-muted">
+                        {new Date(transaction.date).toLocaleDateString()}
                       </p>
                     </div>
                   </motion.div>
                 ))
               ) : (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-muted/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Receipt className="w-8 h-8 text-muted" />
-                  </div>
-                  <p className="text-muted text-base font-medium mb-2">No transactions yet</p>
-                  <p className="text-text-secondary text-sm mb-4">Start tracking your finances</p>
+                <div className="text-center py-8">
+                  <Receipt className="w-8 h-8 text-muted mx-auto mb-2" />
+                  <p className="text-muted text-sm">No transactions yet</p>
                   <Link
                     to="/transactions/new"
-                    className="inline-flex items-center gap-2 btn-aurora px-6 py-3 rounded-xl text-sm font-medium"
+                    className="text-primary hover:text-primary/80 text-sm font-medium mt-2 inline-block"
                   >
-                    <Plus className="w-4 h-4" />
-                    Add Transaction
+                    Add your first transaction
                   </Link>
                 </div>
               )}
             </div>
           </motion.div>
 
-          {/* Enhanced Profile Card */}
+          {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="glass-card p-8"
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="glass-card p-6"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-aurora rounded-2xl flex items-center justify-center">
-                  <User className="w-8 h-8 text-white" />
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-aurora-emerald rounded-full border-2 border-background flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full" />
-                </div>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                <User className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-foreground text-lg">{currentUser?.name}</h4>
-                <p className="text-sm text-text-secondary">{currentUser?.email}</p>
+                <h4 className="font-semibold text-foreground">{currentUser?.name}</h4>
+                <p className="text-sm text-muted">{currentUser?.email}</p>
               </div>
             </div>
             
-            <div className="space-y-4 mb-6">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-surface/30">
-                <div className="flex items-center gap-3">
-                  <Wallet className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-text-secondary">Currency</span>
-                </div>
-                <span className="text-sm font-semibold text-foreground">
-                  {currentUser?.preferredCurrency || 'USD'}
-                </span>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-muted">Preferred Currency</span>
+                <span className="text-sm text-foreground">{currentUser?.preferredCurrency || 'USD'}</span>
               </div>
-              <div className="flex items-center justify-between p-4 rounded-xl bg-surface/30">
-                <div className="flex items-center gap-3">
-                  <Target className="w-5 h-5 text-aurora-emerald" />
-                  <span className="text-sm font-medium text-text-secondary">Status</span>
-                </div>
-                <span className="status-positive">Active</span>
+              <div className="flex justify-between">
+                <span className="text-sm text-muted">Account Status</span>
+                <span className="text-sm text-green-400">Active</span>
               </div>
             </div>
 
             <Link
               to="/profile"
-              className="block w-full text-center bg-gradient-to-r from-primary/10 to-accent/10 hover:from-primary/20 hover:to-accent/20 text-foreground py-4 rounded-xl text-sm font-medium transition-all duration-300 border border-primary/20 hover:border-primary/40"
+              className="block w-full mt-4 text-center bg-white/5 hover:bg-white/10 text-foreground py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Edit Profile
             </Link>

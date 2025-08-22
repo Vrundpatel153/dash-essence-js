@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import { ThemeProvider } from "./context/ThemeProvider";
 import { seedDataIfNeeded } from "./seed/seedData";
 import Layout from "./components/Layout";
 import LoginPage from "./pages/auth/LoginPage";
@@ -61,25 +60,21 @@ function AppRoutes() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <AppRoutes />
-            <Toaster 
-              position="bottom-right"
-              toastOptions={{
-                className: "glass-card",
-                style: {
-                  background: 'hsl(var(--surface))',
-                  color: 'hsl(var(--foreground))',
-                  border: '1px solid hsl(var(--border))',
-                  borderRadius: 'var(--radius)',
-                },
-              }}
-            />
-          </BrowserRouter>
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <AppRoutes />
+          <Toaster 
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: 'hsl(var(--navy-surface))',
+                color: 'hsl(var(--text-primary))',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+              },
+            }}
+          />
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
