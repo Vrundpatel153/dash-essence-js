@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { seedDataIfNeeded } from "./seed/seedData";
 import Layout from "./components/Layout";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import Dashboard from "./pages/Dashboard";
@@ -25,12 +26,20 @@ function ProtectedRoute({ children }) {
 
 function PublicRoute({ children }) {
   const { currentUser } = useAuth();
-  return !currentUser ? children : <Navigate to="/dashboard" replace />;
+  return !currentUser ? children : <Navigate to="/app/dashboard" replace />;
 }
 
 function AppRoutes() {
   return (
     <Routes>
+      {/* Landing Page - Public Route */}
+      <Route path="/" element={
+        <PublicRoute>
+          <LandingPage />
+        </PublicRoute>
+      } />
+      
+      {/* Auth Routes */}
       <Route path="/auth/login" element={
         <PublicRoute>
           <LoginPage />
@@ -42,8 +51,9 @@ function AppRoutes() {
         </PublicRoute>
       } />
       
-      <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-        <Route index element={<Navigate to="/dashboard" replace />} />
+      {/* Protected App Routes */}
+      <Route path="/app" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+        <Route index element={<Navigate to="/app/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="transactions/new" element={<TransactionForm />} />

@@ -24,7 +24,7 @@ export default function RegisterPage() {
     
     if (result.success) {
       toast.success('Account created successfully!');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } else {
       toast.error(result.error || 'Registration failed');
     }
@@ -173,6 +173,14 @@ export default function RegisterPage() {
                 Sign in
               </Link>
             </p>
+            <div className="mt-4 pt-4 border-t border-border/50">
+              <Link 
+                to="/" 
+                className="text-sm text-muted hover:text-foreground transition-colors"
+              >
+                ← Back to home
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>

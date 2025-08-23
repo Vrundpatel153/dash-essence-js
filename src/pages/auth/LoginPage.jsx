@@ -26,7 +26,7 @@ export default function LoginPage() {
     
     if (result.success) {
       toast.success('Welcome back!');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } else {
       toast.error(result.error || 'Login failed');
     }
@@ -45,7 +45,7 @@ export default function LoginPage() {
     
     if (result.success) {
       toast.success('Demo login successful!');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } else {
       toast.error(result.error || 'Demo login failed');
     }
@@ -189,6 +189,14 @@ export default function LoginPage() {
                 Sign up
               </Link>
             </p>
+            <div className="mt-4 pt-4 border-t border-border/50">
+              <Link 
+                to="/" 
+                className="text-sm text-muted hover:text-foreground transition-colors"
+              >
+                ← Back to home
+              </Link>
+            </div>
           </div>
         </div>
       </motion.div>
