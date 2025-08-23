@@ -51,6 +51,12 @@ function AppRoutes() {
         </PublicRoute>
       } />
       
+      {/* Redirect legacy routes */}
+      <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
+      <Route path="/transactions" element={<Navigate to="/app/transactions" replace />} />
+      <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
+      <Route path="/settings" element={<Navigate to="/app/settings" replace />} />
+      
       {/* Protected App Routes */}
       <Route path="/app" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<Navigate to="/app/dashboard" replace />} />
