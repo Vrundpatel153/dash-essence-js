@@ -16,11 +16,12 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session on app start
-    const savedUser = safeLocalStorageGet(STORAGE_KEYS.CURRENT_USER);
-    if (savedUser) {
-      setCurrentUser(savedUser);
-    }
+    // Clear existing session to show landing page on fresh start
+    // Comment out the lines below if you want to persist login sessions
+    // const savedUser = safeLocalStorageGet(STORAGE_KEYS.CURRENT_USER);
+    // if (savedUser) {
+    //   setCurrentUser(savedUser);
+    // }
     setLoading(false);
   }, []);
 
