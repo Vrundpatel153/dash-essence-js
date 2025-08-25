@@ -29,6 +29,14 @@
     --gradient-balance: linear-gradient(135deg, hsl(var(--accent-purple)) 0%, hsl(var(--accent-pink)) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     
+    /* Landing Page Specific (Bright theme) */
+    --landing-bg: 220 30% 97%;         /* Light background */
+    --landing-surface: 0 0% 100%;      /* White cards */
+    --landing-text: 225 75% 8%;        /* Dark text */
+    --landing-muted: 218 15% 40%;      /* Muted text */
+    --landing-accent: 220 100% 60%;    /* Blue accent */
+    --landing-secondary: 280 60% 65%;  /* Purple secondary */
+    
     /* Design System Tokens */
     --background: var(--navy-deep);
     --foreground: var(--text-primary);
@@ -53,6 +61,32 @@
     --glass-bg: rgba(255, 255, 255, 0.04);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .light {
+    /* Light Mode Colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 76% 36%;
+    
+    /* Light Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 }
 

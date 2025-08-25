@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeProvider";
 import { seedDataIfNeeded } from "./seed/seedData";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage";
@@ -52,6 +53,8 @@ function AppRoutes() {
       } />
       
       {/* Redirect legacy routes */}
+      <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+      <Route path="/register" element={<Navigate to="/auth/register" replace />} />
       <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
       <Route path="/transactions" element={<Navigate to="/app/transactions" replace />} />
       <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
@@ -76,21 +79,23 @@ function AppRoutes() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <BrowserRouter>
-          <AppRoutes />
-          <Toaster 
-            position="bottom-right"
-            toastOptions={{
-              style: {
-                background: 'hsl(var(--navy-surface))',
-                color: 'hsl(var(--text-primary))',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              },
-            }}
-          />
-        </BrowserRouter>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+            <Toaster 
+              position="bottom-right"
+              toastOptions={{
+                style: {
+                  background: 'hsl(var(--navy-surface))',
+                  color: 'hsl(var(--text-primary))',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                },
+              }}
+            />
+          </BrowserRouter>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

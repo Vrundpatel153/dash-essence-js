@@ -142,6 +142,13 @@ export default function TransactionsPage() {
             <span>Export</span>
           </button>
           
+          <Link
+            to="/app/transactions/new"
+            className="inline-flex items-center space-x-2 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Transaction</span>
+          </Link>
         </div>
       </motion.div>
 
@@ -351,7 +358,7 @@ export default function TransactionsPage() {
                       {!isDeleted && (
                         <div className="flex items-center space-x-2">
                           <Link
-                            to={`/transactions/${transaction.id}/edit`}
+                            to={`/app/transactions/${transaction.id}/edit`}
                             className="p-1 text-muted hover:text-foreground transition-colors"
                           >
                             <Edit className="w-4 h-4" />

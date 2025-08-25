@@ -34,7 +34,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
         <div className="flex items-center space-x-3">
           {/* Quick Add Button */}
           <Link
-            to="/transactions/new"
+            to="/app/transactions/new"
             className="hidden sm:flex items-center space-x-2 bg-gradient-primary hover:opacity-90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm"
           >
             <Plus className="w-4 h-4" />
@@ -43,7 +43,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
 
           {/* Mobile Quick Add */}
           <Link
-            to="/transactions/new"
+            to="/app/transactions/new"
             className="sm:hidden p-2 bg-gradient-primary hover:opacity-90 text-white rounded-lg transition-all duration-200 shadow-sm"
           >
             <Plus className="w-5 h-5" />
@@ -92,7 +92,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                 >
                   <div className="p-2">
                     <Link
-                      to="/profile"
+                      to="/app/profile"
                       onClick={() => setShowUserMenu(false)}
                       className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-foreground hover:bg-white/5 rounded-md transition-colors"
                     >
