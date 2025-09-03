@@ -1,10 +1,13 @@
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import App from './App';
 import './index.css';
 import { ThemeProvider } from './context/ThemeProvider.jsx';
 
-createRoot(document.getElementById("root")).render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>
-);
+const rootEl = document.getElementById('root');
+if (rootEl) {
+  createRoot(rootEl).render(
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+}
