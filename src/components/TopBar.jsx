@@ -15,7 +15,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const [unreadCount] = useState(2);
 
   return (
-    <header className="sticky top-0 z-50 glass-card border-b border-border/50 px-6 py-4 backdrop-blur-xl">
+    <header className="sticky top-0 z-[100] glass-card border-b border-border/50 px-6 py-4 backdrop-blur-xl">
       <div className="flex items-center justify-between">
         {/* Left section */}
         <div className="flex items-center space-x-4">
@@ -114,7 +114,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-[9999]"
+                  className="fixed right-6 mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-[9999] bg-background/95 backdrop-blur-sm"
                 >
                   <div className="p-2">
                       <Link
