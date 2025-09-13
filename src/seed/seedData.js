@@ -21,7 +21,7 @@ function createDemoUser() {
     email: DEMO_CREDENTIALS.email,
     password: DEMO_CREDENTIALS.password,
     avatarUrl: null,
-    preferredCurrency: 'USD',
+  preferredCurrency: 'INR',
     createdAt: new Date().toISOString(),
   };
 }
@@ -60,7 +60,7 @@ function generateSampleTransactions() {
     // Recent income
     {
       type: 'income',
-      amountMinor: 450000, // $4,500
+  amountMinor: 450000, // ₹4,500.00
       categoryId: 'cat-salary',
       note: 'Monthly salary',
       date: now.subtract(2, 'day').toISOString(),
@@ -68,7 +68,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'income',
-      amountMinor: 120000, // $1,200
+  amountMinor: 120000, // ₹1,200.00
       categoryId: 'cat-freelance',
       note: 'Website project completion',
       date: now.subtract(5, 'day').toISOString(),
@@ -78,7 +78,7 @@ function generateSampleTransactions() {
     // Recent expenses
     {
       type: 'expense',
-      amountMinor: 8500, // $85
+  amountMinor: 8500, // ₹85.00
       categoryId: 'cat-food',
       note: 'Weekly groceries',
       date: now.subtract(1, 'day').toISOString(),
@@ -86,7 +86,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 1200, // $12
+  amountMinor: 1200, // ₹12.00
       categoryId: 'cat-transport',
       note: 'Metro card top-up',
       date: now.subtract(1, 'day').toISOString(),
@@ -94,7 +94,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 4500, // $45
+  amountMinor: 4500, // ₹45.00
       categoryId: 'cat-entertainment',
       note: 'Movie tickets',
       date: now.subtract(3, 'day').toISOString(),
@@ -102,7 +102,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 125000, // $1,250
+  amountMinor: 125000, // ₹1,250.00
       categoryId: 'cat-rent',
       note: 'Monthly rent',
       date: now.subtract(4, 'day').toISOString(),
@@ -112,7 +112,7 @@ function generateSampleTransactions() {
     // Older transactions
     {
       type: 'expense',
-      amountMinor: 6800, // $68
+  amountMinor: 6800, // ₹68.00
       categoryId: 'cat-utilities',
       note: 'Internet bill',
       date: now.subtract(7, 'day').toISOString(),
@@ -120,7 +120,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 15000, // $150
+  amountMinor: 15000, // ₹150.00
       categoryId: 'cat-shopping',
       note: 'Clothing purchase',
       date: now.subtract(10, 'day').toISOString(),
@@ -128,7 +128,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'income',
-      amountMinor: 75000, // $750
+  amountMinor: 75000, // ₹750.00
       categoryId: 'cat-investment',
       note: 'Dividend payment',
       date: now.subtract(12, 'day').toISOString(),
@@ -136,7 +136,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 9200, // $92
+  amountMinor: 9200, // ₹92.00
       categoryId: 'cat-food',
       note: 'Restaurant dinner',
       date: now.subtract(14, 'day').toISOString(),
@@ -146,7 +146,7 @@ function generateSampleTransactions() {
     // Month ago transactions
     {
       type: 'income',
-      amountMinor: 450000, // $4,500
+  amountMinor: 450000, // ₹4,500.00
       categoryId: 'cat-salary',
       note: 'Monthly salary',
       date: now.subtract(32, 'day').toISOString(),
@@ -154,7 +154,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 125000, // $1,250
+  amountMinor: 125000, // ₹1,250.00
       categoryId: 'cat-rent',
       note: 'Monthly rent',
       date: now.subtract(34, 'day').toISOString(),
@@ -162,7 +162,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 25000, // $250
+  amountMinor: 25000, // ₹250.00
       categoryId: 'cat-shopping',
       note: 'Electronics purchase',
       date: now.subtract(28, 'day').toISOString(),
@@ -170,7 +170,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'expense',
-      amountMinor: 8900, // $89
+  amountMinor: 8900, // ₹89.00
       categoryId: 'cat-healthcare',
       note: 'Doctor visit',
       date: now.subtract(25, 'day').toISOString(),
@@ -178,7 +178,7 @@ function generateSampleTransactions() {
     },
     {
       type: 'income',
-      amountMinor: 200000, // $2,000
+  amountMinor: 200000, // ₹2,000.00
       categoryId: 'cat-freelance',
       note: 'App development project',
       date: now.subtract(20, 'day').toISOString(),
@@ -190,7 +190,7 @@ function generateSampleTransactions() {
     id: uuidv4(),
     userId,
     ...tx,
-    currency: 'USD',
+  currency: 'INR',
     receiptUrl: null,
     isDeleted: false,
     createdAt: new Date().toISOString(),

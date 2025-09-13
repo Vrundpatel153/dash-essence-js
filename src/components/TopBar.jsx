@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Plus, Bell, User, LogOut, Sun, Moon } from 'lucide-react';
+import { Menu, Plus, Bell, User, LogOut, Sun, Moon, AlarmClock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from 'next-themes';
 
 export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const { currentUser, logout } = useAuth();
   const { theme, setTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  // Basic unread indicator stub (could be replaced by context/state later)
+  const [unreadCount] = useState(2);
 
   return (
     <header className="glass-card border-b border-border/50 px-6 py-4">
@@ -17,7 +21,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
         <div className="flex items-center space-x-4">
           <button
             onClick={onSidebarToggle}
-            className="p-2 rounded-lg hover:bg-white/5 transition-colors md:hidden"
+            className="p-2 rounded-lg hover:bg-card/5 transition-colors md:hidden"
           >
             <Menu className="w-5 h-5 text-muted" />
           </button>
@@ -52,7 +56,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
           {/* Theme Toggle */}
           <button 
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+            className="p-2 rounded-lg hover:bg-card/5 transition-colors"
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5 text-muted" />
@@ -61,17 +65,39 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
             )}
           </button>
 
+
+          {/* Reminder Alarm Icon */}
+          <button
+            onClick={() => {
+              if (location.pathname !== '/app/set-reminder') navigate('/app/set-reminder');
+            }}
+            className="p-2 rounded-lg hover:bg-card/5 transition-colors"
+            title="Set Reminder"
+          >
+            <AlarmClock className="w-5 h-5 text-primary" />
+          </button>
+
           {/* Notifications */}
-          <button className="p-2 rounded-lg hover:bg-white/5 transition-colors relative">
+          <button
+            onClick={() => {
+              if (location.pathname !== '/app/notifications') navigate('/app/notifications');
+            }}
+            className="p-2 rounded-lg hover:bg-card/5 transition-colors relative"
+            title="Notifications"
+          >
             <Bell className="w-5 h-5 text-muted" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-primary text-[10px] leading-4 font-medium text-white rounded-full flex items-center justify-center">
+                {unreadCount}
+              </span>
+            )}
           </button>
 
           {/* User Menu */}
           <div className="relative">
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-white/5 transition-colors"
+              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-card/5 transition-colors"
             >
               <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
                 <User className="w-4 h-4 text-white" />
@@ -91,24 +117,25 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                   className="absolute right-0 mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-50"
                 >
                   <div className="p-2">
-                    <Link
-                      to="/app/profile"
-                      onClick={() => setShowUserMenu(false)}
-                      className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-foreground hover:bg-white/5 rounded-md transition-colors"
-                    >
-                      <User className="w-4 h-4" />
-                      <span>Profile</span>
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setShowUserMenu(false);
-                        logout();
-                      }}
-                      className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-foreground hover:bg-white/5 rounded-md transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>Sign out</span>
-                    </button>
+                      <Link
+                        to="/app/profile"
+                        onClick={() => setShowUserMenu(false)}
+                        className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-foreground hover:bg-card/5 rounded-md transition-colors"
+                      >
+                        <User className="w-4 h-4" />
+                        <span>Go to Profile</span>
+                      </Link>
+
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          logout();
+                        }}
+                        className="flex items-center space-x-2 w-full px-3 py-2 mt-1 text-sm text-foreground hover:bg-card/5 rounded-md transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign out</span>
+                      </button>
                   </div>
                 </motion.div>
               )}

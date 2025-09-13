@@ -65,7 +65,7 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-2xl mb-4">
             <TrendingUp className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-heading font-bold text-foreground mb-2">
+          <h1 className="text-3xl font-heading font-bold mb-2 bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             Welcome back
           </h1>
           <p className="text-muted">Sign in to your account to continue</p>
@@ -143,11 +143,11 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-primary hover:opacity-90 disabled:opacity-50 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-sm"
+              className="w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 disabled:opacity-50 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow shadow-fuchsia-600/30"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-border mr-2"></div>
                   Signing in...
                 </div>
               ) : (
@@ -168,7 +168,7 @@ export default function LoginPage() {
               <button
                 onClick={demoLogin}
                 disabled={loading}
-                className="flex-1 px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-all duration-200"
+                className="flex-1 px-4 py-2 bg-indigo-500/20 text-indigo-300 hover:bg-indigo-500/30 rounded-lg transition-all duration-200"
               >
                 Demo Login
               </button>

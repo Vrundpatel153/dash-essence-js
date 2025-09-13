@@ -17,10 +17,10 @@ export default function BalanceCard({ balance, income, expenses }) {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-white/80 text-sm font-medium">Total Balance</h3>
-          <p className="text-xs text-white/60">Current account balance</p>
+          <h3 className="text-foreground/90 text-sm font-medium">Total Balance</h3>
+          <p className="text-xs text-foreground/70">Current account balance</p>
         </div>
-        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+  <div className="w-10 h-10 bg-card/20 rounded-full flex items-center justify-center">
           <DollarSign className="w-5 h-5 text-white" />
         </div>
       </div>
@@ -31,9 +31,9 @@ export default function BalanceCard({ balance, income, expenses }) {
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="text-3xl sm:text-4xl font-heading font-bold text-white mb-2"
+          className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-2"
         >
-          {formatCurrency(balance)}
+          {formatCurrency(balance, 'INR')}
         </motion.h2>
         <div className={`inline-flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium ${
           isPositive 
@@ -51,23 +51,23 @@ export default function BalanceCard({ balance, income, expenses }) {
 
       {/* Income & Expenses */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white/10 rounded-lg p-4">
+  <div className="bg-card/10 rounded-lg p-4">
           <div className="flex items-center space-x-2 mb-2">
             <TrendingUp className="w-4 h-4 text-green-300" />
-            <span className="text-white/80 text-sm">Income</span>
+            <span className="text-foreground/90 text-sm">Income</span>
           </div>
-          <p className="text-white font-semibold">
-            {formatCurrency(incomeAmount)}
+          <p className="text-foreground font-semibold">
+            {formatCurrency(incomeAmount, 'INR')}
           </p>
         </div>
 
-        <div className="bg-white/10 rounded-lg p-4">
+  <div className="bg-card/10 rounded-lg p-4">
           <div className="flex items-center space-x-2 mb-2">
             <TrendingDown className="w-4 h-4 text-red-300" />
-            <span className="text-white/80 text-sm">Expenses</span>
+            <span className="text-foreground/90 text-sm">Expenses</span>
           </div>
-          <p className="text-white font-semibold">
-            {formatCurrency(expenseAmount)}
+          <p className="text-foreground font-semibold">
+            {formatCurrency(expenseAmount, 'INR')}
           </p>
         </div>
       </div>

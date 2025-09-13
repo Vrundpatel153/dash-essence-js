@@ -14,6 +14,8 @@ import TransactionForm from "./pages/TransactionForm";
 import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import SetReminder from "./pages/SetReminder";
 
 // Initialize seed data on app start
 seedDataIfNeeded();
@@ -63,12 +65,14 @@ function AppRoutes() {
       {/* Protected App Routes */}
       <Route path="/app" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<Navigate to="/app/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
+  <Route path="dashboard" element={<Dashboard />} />
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="transactions/new" element={<TransactionForm />} />
         <Route path="transactions/:id/edit" element={<TransactionForm />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
+  <Route path="set-reminder" element={<SetReminder />} />
+  <Route path="notifications" element={<NotificationsPage />} />
       </Route>
       
       <Route path="*" element={<NotFoundPage />} />

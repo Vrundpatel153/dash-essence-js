@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { User, Mail, DollarSign, Save } from 'lucide-react';
+import { User, Mail, Save } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
 
-const currencies = [
-  { value: 'USD', label: 'US Dollar (USD)' },
-  { value: 'INR', label: 'Indian Rupee (INR)' },
-];
+// Currency selection removed – app locked to INR.
 
 export default function ProfilePage() {
   const { currentUser, updateProfile } = useAuth();
@@ -22,7 +19,8 @@ export default function ProfilePage() {
     defaultValues: {
       name: currentUser?.name || '',
       email: currentUser?.email || '',
-      preferredCurrency: currentUser?.preferredCurrency || 'USD',
+  // currency fixed to INR
+  preferredCurrency: 'INR',
     },
   });
 
@@ -49,7 +47,7 @@ export default function ProfilePage() {
         transition={{ duration: 0.5 }}
         className="mb-6"
       >
-        <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
+        <h1 className="text-2xl font-heading font-bold mb-2 bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
           Profile Settings
         </h1>
         <p className="text-muted">
@@ -66,7 +64,7 @@ export default function ProfilePage() {
       >
         {/* Avatar Section */}
         <div className="flex items-center space-x-4 mb-8 pb-6 border-b border-border/50">
-          <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-600 flex items-center justify-center shadow-lg shadow-fuchsia-600/30">
             <User className="w-10 h-10 text-white" />
           </div>
           <div>
@@ -135,30 +133,18 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* Preferred Currency */}
+          {/* Currency (fixed) */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Preferred Currency
+              Currency
             </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <DollarSign className="w-5 h-5 text-muted" />
-              </div>
-              <select
-                {...register('preferredCurrency')}
-                className="block w-full pl-10 pr-3 py-3 bg-input border border-border/50 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-foreground"
-              >
-                {currencies.map(currency => (
-                  <option key={currency.value} value={currency.value}>
-                    {currency.label}
-                  </option>
-                ))}
-              </select>
+            <div className="p-3 bg-input border border-border/50 rounded-lg text-sm text-foreground">
+              Indian Rupee (INR ₹)
             </div>
           </div>
 
           {/* Account Statistics */}
-          <div className="bg-white/5 rounded-lg p-4">
+          <div className="bg-card/5 rounded-lg p-4 border border-border/50">
             <h4 className="text-sm font-medium text-foreground mb-3">Account Information</h4>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
@@ -177,7 +163,7 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center space-x-2 bg-gradient-primary hover:opacity-90 disabled:opacity-50 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 disabled:opacity-50 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow shadow-fuchsia-600/30"
             >
               <Save className="w-4 h-4" />
               <span>
@@ -195,7 +181,7 @@ export default function ProfilePage() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="glass-card p-6 mt-6"
       >
-        <h3 className="text-lg font-semibold text-foreground mb-4">Security</h3>
+  <h3 className="text-lg font-semibold text-foreground mb-4">Security</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>

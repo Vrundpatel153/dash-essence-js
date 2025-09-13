@@ -74,22 +74,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Dashboard Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col sm:flex-row sm:items-center sm:justify-between"
-      >
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">
-            Dashboard
-          </h1>
-          <p className="text-muted mt-1">
-            Welcome back, {currentUser?.name}. Here's your financial overview.
-          </p>
-        </div>
-        
-      </motion.div>
+    
 
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -108,15 +93,20 @@ export default function Dashboard() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
-            {quickStats.map((stat, index) => (
-              <div key={stat.label} className="glass-card p-4">
-                <div className="flex items-center space-x-3">
-                  <div className={`p-2 rounded-lg bg-white/10`}>
-                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted">{stat.label}</p>
-                    <p className="font-semibold text-foreground">{stat.value}</p>
+            {quickStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="relative group rounded-xl p-[1px] bg-gradient-to-br from-indigo-500/40 via-violet-500/30 to-fuchsia-600/40 hover:from-indigo-400/60 hover:via-violet-400/50 hover:to-fuchsia-500/60 transition-colors"
+              >
+                <div className="glass-card rounded-xl h-full p-4 flex items-center">
+                  <div className="flex items-center space-x-3 w-full">
+                    <div className="p-2 rounded-lg bg-white/10 group-hover:bg-white/15 transition-colors">
+                      <stat.icon className={`w-5 h-5 ${stat.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs uppercase tracking-wide text-muted">{stat.label}</p>
+                      <p className="font-semibold text-foreground mt-0.5">{stat.value}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -124,14 +114,15 @@ export default function Dashboard() {
           </motion.div>
         </div>
 
-        {/* Right Column */}
-        <div className="space-y-6">
+
+    {/* Right Column */}
+  <div className="flex flex-col h-full">
           {/* Recent Transactions */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="glass-card p-6"
+            className="glass-card p-6 mb-6"
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading font-semibold text-foreground">
@@ -212,7 +203,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="glass-card p-6"
+            className="glass-card p-6 mb-12"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
@@ -223,18 +214,16 @@ export default function Dashboard() {
                 <p className="text-sm text-muted">{currentUser?.email}</p>
               </div>
             </div>
-            
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm text-muted">Preferred Currency</span>
-                <span className="text-sm text-foreground">{currentUser?.preferredCurrency || 'USD'}</span>
+                <span className="text-sm text-muted">Currency</span>
+                <span className="text-sm text-foreground">INR (₹)</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Account Status</span>
                 <span className="text-sm text-green-400">Active</span>
               </div>
             </div>
-
             <Link
               to="/profile"
               className="block w-full mt-4 text-center bg-white/5 hover:bg-white/10 text-foreground py-2 rounded-lg text-sm font-medium transition-colors"
@@ -242,6 +231,18 @@ export default function Dashboard() {
               Edit Profile
             </Link>
           </motion.div>
+          {/* Rectangle card at the bottom right for custom content */}
+          <div className="mt-1 mb-1">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="glass-card p-6 flex items-center justify-center min-h-[163.5px] rounded-2xl -mt-8 relative z-10"
+            >
+              {/* Add your video/component or content here */}
+              <span className="text-muted">Custom Rectangle Card</span>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

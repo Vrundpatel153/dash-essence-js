@@ -87,7 +87,7 @@ export default function TransactionForm() {
         ...data,
         amountMinor: Math.round(parseFloat(data.amountMinor) * 100),
         date: new Date(data.date).toISOString(),
-        currency: currentUser?.preferredCurrency || 'USD',
+  currency: 'INR',
       };
 
       if (isEditing) {
@@ -123,12 +123,12 @@ export default function TransactionForm() {
       >
         <Link
           to="/transactions"
-          className="p-2 hover:bg-white/5 rounded-lg transition-colors"
+          className="p-2 hover:bg-card/5 rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-muted" />
         </Link>
         <div>
-          <h1 className="text-2xl font-heading font-bold text-foreground">
+          <h1 className="text-2xl font-heading font-bold bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             {isEditing ? 'Edit Transaction' : 'Add Transaction'}
           </h1>
           <p className="text-muted">
@@ -317,18 +317,18 @@ export default function TransactionForm() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end space-y-3 sm:space-y-0 sm:space-x-3 pt-6 border-t border-border/50">
             <Link
               to="/transactions"
-              className="px-6 py-3 border border-border/50 text-foreground hover:bg-white/5 rounded-lg font-medium transition-colors text-center"
+              className="px-6 py-3 border border-border/50 text-foreground hover:bg-card/5 rounded-lg font-medium transition-colors text-center"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-3 bg-gradient-primary hover:opacity-90 disabled:opacity-50 text-white font-medium rounded-lg transition-all duration-200 shadow-sm"
+              className="px-6 py-3 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 disabled:opacity-50 text-white font-medium rounded-lg transition-all duration-200 shadow shadow-fuchsia-600/30"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-border mr-2"></div>
                   {isEditing ? 'Updating...' : 'Creating...'}
                 </div>
               ) : (

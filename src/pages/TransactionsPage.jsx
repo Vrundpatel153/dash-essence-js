@@ -125,7 +125,7 @@ export default function TransactionsPage() {
         className="flex flex-col sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             Transactions
           </h1>
           <p className="text-muted mt-1">
@@ -136,7 +136,7 @@ export default function TransactionsPage() {
         <div className="flex items-center space-x-3 mt-4 sm:mt-0">
           <button
             onClick={handleExport}
-            className="inline-flex items-center space-x-2 bg-white/5 hover:bg-white/10 text-foreground px-4 py-2 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center space-x-2 bg-card/5 hover:bg-card/10 text-foreground px-4 py-2 rounded-lg font-medium transition-colors border border-border/50"
           >
             <Download className="w-4 h-4" />
             <span>Export</span>
@@ -144,7 +144,7 @@ export default function TransactionsPage() {
           
           <Link
             to="/app/transactions/new"
-            className="inline-flex items-center space-x-2 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow shadow-fuchsia-600/30"
           >
             <Plus className="w-4 h-4" />
             <span>Add Transaction</span>
@@ -180,7 +180,7 @@ export default function TransactionsPage() {
             className={`inline-flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
               showFilters 
                 ? 'bg-primary text-primary-foreground' 
-                : 'bg-white/5 hover:bg-white/10 text-foreground'
+                : 'bg-card/5 hover:bg-card/10 text-foreground'
             }`}
           >
             <Filter className="w-4 h-4" />
@@ -307,7 +307,7 @@ export default function TransactionsPage() {
                     filter: isDeleted ? 'grayscale(1)' : 'grayscale(0)'
                   }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="p-4 hover:bg-white/5 transition-colors"
+                  className="p-4 hover:bg-card/5 transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
@@ -379,7 +379,7 @@ export default function TransactionsPage() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-card/5 rounded-full flex items-center justify-center mx-auto mb-4">
               <Search className="w-8 h-8 text-muted" />
             </div>
             <h3 className="text-lg font-medium text-foreground mb-2">

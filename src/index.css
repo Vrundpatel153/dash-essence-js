@@ -61,33 +61,59 @@
     --glass-bg: rgba(255, 255, 255, 0.04);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* Chart defaults (dark mode baseline) */
+    --chart-grid: 220 12% 22%;            /* dark grid lines */
+    --chart-axis: 220 16% 28%;            /* dark axis */
+    --chart-tooltip-bg: 220 30% 8%;       /* nearly-black tooltip bg */
+    --chart-tooltip-text: 0 0% 100%;      /* white tooltip text */
+    --chart-tooltip-border: 0 0% 100% / 0.06; /* subtle light border */
   }
 
   .light {
-    /* Light Mode Colors */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --primary: 142 76% 36%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 142 76% 36%;
-    
-    /* Light Glass Effect */
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    /* Light Mode Colors - aim for ~30% pure white use, rest soft pastels */
+    --background: 210 22% 98%;        /* soft cool off-white */
+    --foreground: 220 12% 12%;        /* near-black for readability */
+    --card: 216 45% 97%;              /* airy light blue surface */
+    --card-foreground: 220 12% 12%;
+    --primary: 212 100% 45%;          /* keep primary vivid for accents */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 322 50% 97%;         /* blush pink secondary surface */
+    --secondary-foreground: 220 12% 12%;
+    --muted: 210 20% 96%;             /* subtle neutral for muted areas */
+    --muted-foreground: 220 10% 45%;  /* soft gray-blue text */
+    --accent: 260 55% 70%;            /* gentle lavender accent */
+    --accent-foreground: 220 12% 12%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 20% 88%;            /* cool light border */
+    --input: 216 30% 94%;
+    --ring: 212 100% 45%;
+
+    /* Gradients tuned for light mode (pastel) */
+    --gradient-primary: linear-gradient(135deg, hsl(260 60% 84%), hsl(320 75% 85%));
+    --gradient-balance: linear-gradient(135deg, hsl(230 70% 88%) 0%, hsl(310 70% 88%) 100%);
+
+    /* Light Glass Effect - softer and less stark */
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(16, 24, 40, 0.06);
+    --glass-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+
+    /* Charts in light mode */
+    --chart-grid: 220 14% 86%;
+    --chart-axis: 220 12% 40%;
+    --chart-tooltip-bg: 216 45% 97%;     /* match card surface (light blue) */
+    --chart-tooltip-text: 220 12% 12%;
+    --chart-tooltip-border: 214 20% 88%;
   }
+
+  /* Light-mode text visibility: make any `text-white` utility render as black-ish */
+  .light .text-white { color: hsl(var(--foreground)) !important; }
+  .light .text-white\/95 { color: hsl(var(--foreground) / 0.95) !important; }
+  .light .text-white\/80 { color: hsl(var(--foreground) / 0.80) !important; }
+  .light .text-white\/60 { color: hsl(var(--foreground) / 0.60) !important; }
+  /* Ensure "text-muted" remains readable in light mode */
+  .light .text-muted { color: hsl(var(--muted-foreground)) !important; }
 }
 
 @layer base {
@@ -101,8 +127,8 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    background: hsl(var(--navy-deep));
-    color: hsl(var(--text-primary));
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -151,6 +177,56 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  /* Neon Accent Ring */
+  .neon-ring {
+    position: relative;
+  }
+  .neon-ring::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(140deg, hsl(var(--accent-purple)/.8), hsl(var(--accent-pink)/.7), hsl(var(--accent-teal)/.7));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: .55;
+    pointer-events: none;
+    transition: opacity .35s ease;
+  }
+  .neon-ring:hover::before { opacity: .9; }
+
+  /* Soft focus glow utility */
+  .focus-glow {
+    box-shadow: 0 0 0 1px hsl(var(--accent-purple)/.4), 0 0 0 4px hsl(var(--accent-pink)/.12), 0 0 24px -4px hsl(var(--accent-teal)/.5);
+  }
+
+  /* Futuristic divider */
+  .fx-divider {
+    position: relative;
+  }
+  .fx-divider::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent-purple)/.4), hsl(var(--accent-pink)/.3), transparent);
+  }
+
+  /* Glass button variant */
+  .btn-glass {
+    background-color: color-mix(in srgb, hsl(var(--card)) 10%, transparent);
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--card-foreground));
+    border-radius: var(--radius);
+    backdrop-filter: blur(6px);
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+  }
+  .btn-glass:hover { background-color: color-mix(in srgb, hsl(var(--card)) 20%, transparent); }
   
   /* Animations */
   .animate-slide-up {
@@ -182,12 +258,4 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+/* Final base overrides are defined above; avoid duplicate @apply rules here to keep PostCSS happy. */

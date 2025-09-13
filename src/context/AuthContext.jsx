@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
         name: user.name,
         email: user.email,
         avatarUrl: user.avatarUrl,
-        preferredCurrency: user.preferredCurrency,
+  preferredCurrency: 'INR',
       };
 
       safeLocalStorageSet(STORAGE_KEYS.CURRENT_USER, sessionUser);
@@ -80,7 +80,7 @@ export function AuthProvider({ children }) {
         email,
         password,
         avatarUrl: null,
-        preferredCurrency: 'USD',
+  preferredCurrency: 'INR',
         createdAt: new Date().toISOString(),
       };
 
@@ -94,7 +94,7 @@ export function AuthProvider({ children }) {
         name: newUser.name,
         email: newUser.email,
         avatarUrl: newUser.avatarUrl,
-        preferredCurrency: newUser.preferredCurrency,
+  preferredCurrency: 'INR',
       };
 
       safeLocalStorageSet(STORAGE_KEYS.CURRENT_USER, sessionUser);

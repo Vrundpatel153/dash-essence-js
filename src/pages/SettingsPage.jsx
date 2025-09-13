@@ -60,7 +60,7 @@ export default function SettingsPage() {
         transition={{ duration: 0.5 }}
         className="mb-6"
       >
-        <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
+        <h1 className="text-2xl font-heading font-bold mb-2 bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
           Settings
         </h1>
         <p className="text-muted">
@@ -77,16 +77,16 @@ export default function SettingsPage() {
           className="glass-card p-6"
         >
           <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center space-x-2">
-            <Shield className="w-5 h-5" />
-            <span>Data Management</span>
+            <Shield className="w-5 h-5 text-indigo-300" />
+            <span className="bg-gradient-to-r from-indigo-200 via-violet-200 to-fuchsia-200 bg-clip-text text-transparent">Data Management</span>
           </h3>
 
           <div className="grid grid-cols-1 gap-4">
             {/* Export Data */}
-            <div className="bg-white/5 rounded-lg p-4">
+            <div className="bg-card/5 rounded-lg p-4 border border-border/50">
               <div className="flex items-center space-x-3 mb-3">
-                <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
-                  <Download className="w-5 h-5 text-blue-400" />
+                <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center">
+                  <Download className="w-5 h-5 text-indigo-300" />
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">Export Data</h4>
@@ -95,7 +95,7 @@ export default function SettingsPage() {
               </div>
               <button
                 onClick={handleExportData}
-                className="w-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 py-2 px-4 rounded-lg font-medium transition-colors"
+                className="w-full bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 py-2 px-4 rounded-lg font-medium transition-colors"
               >
                 Export CSV
               </button>
@@ -135,7 +135,7 @@ export default function SettingsPage() {
                   </button>
                   <button
                     onClick={() => setShowResetConfirm(false)}
-                    className="bg-white/10 hover:bg-white/20 text-foreground py-1 px-3 rounded text-sm font-medium transition-colors"
+                    className="bg-card/10 hover:bg-card/20 text-foreground py-1 px-3 rounded text-sm font-medium transition-colors"
                   >
                     Cancel
                   </button>

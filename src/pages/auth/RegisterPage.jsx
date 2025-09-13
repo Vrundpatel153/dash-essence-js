@@ -44,7 +44,7 @@ export default function RegisterPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-2xl mb-4">
             <TrendingUp className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-heading font-bold text-foreground mb-2">
+          <h1 className="text-3xl font-heading font-bold mb-2 bg-gradient-to-r from-indigo-300 via-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
             Create account
           </h1>
           <p className="text-muted">Start tracking your expenses today</p>
@@ -149,11 +149,11 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-primary hover:opacity-90 disabled:opacity-50 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-sm"
+              className="w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 disabled:opacity-50 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow shadow-fuchsia-600/30"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-border mr-2"></div>
                   Creating account...
                 </div>
               ) : (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { toast as uiToast } from '@/components/ui/toast'; // if needed; adjust or remove if circular
+// import { toast as uiToast } from '@/components/ui/toast'; // Removed: ui/toast.jsx does not export 'toast'
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;

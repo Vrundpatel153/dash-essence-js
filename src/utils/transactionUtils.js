@@ -1,12 +1,20 @@
 import { STORAGE_KEYS, safeLocalStorageGet, safeLocalStorageSet } from '../seed/seedData';
 import { v4 as uuidv4 } from 'uuid';
 
-export function formatCurrency(amountMinor, currency = 'USD') {
+export function formatCurrency(amountMinor, currency = 'INR') {
   const amount = amountMinor / 100;
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-  }).format(amount);
+  const locale = currency === 'INR' ? 'en-IN' : 'en-US';
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  } catch {
+    // Fallback manual formatting with rupee symbol
+    const symbol = currency === 'INR' ? '₹' : '$';
+    return symbol + amount.toFixed(2);
+  }
 }
 
 export function getTransactions(userId = null) {
@@ -58,6 +66,15 @@ export function saveTransaction(transactionData, userId) {
     }
     
     safeLocalStorageSet(STORAGE_KEYS.TRANSACTIONS, transactions);
+    // After saving, emit a global event with the new balance (in minor units)
+    try {
+      const updatedTransactions = safeLocalStorageGet(STORAGE_KEYS.TRANSACTIONS, []);
+      const balance = calculateBalance(updatedTransactions.filter(tx => tx.userId === userId));
+      // balance is in minor units
+      window.dispatchEvent(new CustomEvent('balanceUpdated', { detail: { userId, balance } }));
+    } catch (e) {
+      // ignore
+    }
     return { success: true };
   } catch (error) {
     console.error('Error saving transaction:', error);
