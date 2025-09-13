@@ -12,7 +12,7 @@ export function formatCurrency(amountMinor, currency = 'INR') {
     }).format(amount);
   } catch {
     // Fallback manual formatting with rupee symbol
-    const symbol = currency === 'INR' ? '₹' : '$';
+    const symbol = currency === 'INR' ? '₹' : '₹';
     return symbol + amount.toFixed(2);
   }
 }
