@@ -71,40 +71,45 @@
   }
 
   .light {
-    /* Light Mode Colors - aim for ~30% pure white use, rest soft pastels */
-    --background: 210 22% 98%;        /* soft cool off-white */
-    --foreground: 220 12% 12%;        /* near-black for readability */
-    --card: 216 45% 97%;              /* airy light blue surface */
-    --card-foreground: 220 12% 12%;
-    --primary: 212 100% 45%;          /* keep primary vivid for accents */
+    /* Light Mode Colors - soft and warm palette */
+    --background: 60 20% 98%;         /* warm cream white */
+    --foreground: 220 15% 15%;        /* dark charcoal for readability */
+    --card: 45 25% 96%;               /* soft pearl surface */
+    --card-foreground: 220 15% 15%;
+    --primary: 210 85% 58%;           /* vibrant ocean blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 322 50% 97%;         /* blush pink secondary surface */
-    --secondary-foreground: 220 12% 12%;
-    --muted: 210 20% 96%;             /* subtle neutral for muted areas */
-    --muted-foreground: 220 10% 45%;  /* soft gray-blue text */
-    --accent: 260 55% 70%;            /* gentle lavender accent */
-    --accent-foreground: 220 12% 12%;
-    --destructive: 0 72% 56%;
+    --secondary: 15 25% 95%;          /* warm beige secondary */
+    --secondary-foreground: 220 15% 15%;
+    --muted: 30 15% 94%;              /* soft neutral */
+    --muted-foreground: 220 8% 42%;   /* medium gray text */
+    --accent: 285 65% 68%;            /* soft purple accent */
+    --accent-foreground: 220 15% 15%;
+    --destructive: 0 65% 58%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 20% 88%;            /* cool light border */
-    --input: 216 30% 94%;
-    --ring: 212 100% 45%;
+    --border: 30 20% 85%;             /* warm light border */
+    --input: 45 20% 93%;
+    --ring: 210 85% 58%;
 
-    /* Gradients tuned for light mode (pastel) */
-    --gradient-primary: linear-gradient(135deg, hsl(260 60% 84%), hsl(320 75% 85%));
-    --gradient-balance: linear-gradient(135deg, hsl(230 70% 88%) 0%, hsl(310 70% 88%) 100%);
+    /* Refined light theme accents */
+    --accent-purple: 285 65% 68%;     /* soft purple */
+    --accent-pink: 330 75% 75%;       /* gentle rose */
+    --accent-teal: 175 85% 55%;       /* fresh teal */
 
-    /* Light Glass Effect - softer and less stark */
-    --glass-bg: rgba(255, 255, 255, 0.72);
-    --glass-border: rgba(16, 24, 40, 0.06);
-    --glass-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+    /* Professional gradients for light mode */
+    --gradient-primary: linear-gradient(135deg, hsl(285 65% 78%), hsl(330 75% 82%));
+    --gradient-balance: linear-gradient(135deg, hsl(210 85% 75%) 0%, hsl(285 65% 78%) 100%);
+
+    /* Enhanced glass effect for professional look */
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(16, 24, 40, 0.08);
+    --glass-shadow: 0 12px 32px rgba(16, 24, 40, 0.12);
 
     /* Charts in light mode */
-    --chart-grid: 220 14% 86%;
-    --chart-axis: 220 12% 40%;
-    --chart-tooltip-bg: 216 45% 97%;     /* match card surface (light blue) */
-    --chart-tooltip-text: 220 12% 12%;
-    --chart-tooltip-border: 214 20% 88%;
+    --chart-grid: 220 15% 82%;
+    --chart-axis: 220 12% 35%;
+    --chart-tooltip-bg: 45 25% 96%;
+    --chart-tooltip-text: 220 15% 15%;
+    --chart-tooltip-border: 30 20% 85%;
   }
 
   /* Light-mode text visibility: make any `text-white` utility render as black-ish */
@@ -149,19 +154,65 @@
 }
 
 @layer components {
-  /* Glass Card Component */
+  /* Professional Glass Card Component */
   .glass-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
   }
   
-  /* Balance Card with Gradient */
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    opacity: 0.8;
+  }
+  
+  /* Enhanced Balance Card with Professional Gradient */
   .balance-card {
     background: var(--gradient-balance);
-    @apply glass-card text-white;
+    @apply glass-card;
+    border: 1px solid rgba(255,255,255,0.15);
+    position: relative;
+  }
+  
+  .balance-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+      rgba(255,255,255,0.1) 0%, 
+      rgba(255,255,255,0.05) 50%, 
+      rgba(255,255,255,0.1) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  /* Professional Card Variants */
+  .pro-card {
+    @apply glass-card;
+    border: 1px solid hsl(var(--border) / 0.8);
+    background: linear-gradient(135deg, 
+      hsl(var(--card) / 0.95) 0%, 
+      hsl(var(--card) / 0.8) 100%);
+  }
+  
+  .pro-card:hover {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 
+      var(--glass-shadow),
+      0 0 0 1px hsl(var(--primary) / 0.1),
+      0 0 24px hsl(var(--primary) / 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Icon Rail Styling */

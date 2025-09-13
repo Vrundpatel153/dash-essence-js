@@ -51,8 +51,10 @@ export default function Layout() {
     <div className="min-h-screen bg-background flex relative overflow-hidden">
       {/* Ambient gradient field */}
       <div className="pointer-events-none absolute inset-0 opacity-70 mix-blend-lighten [background:radial-gradient(circle_at_15%_20%,rgba(99,102,241,0.18),transparent_60%),radial-gradient(circle_at_85%_35%,rgba(217,70,239,0.18),transparent_65%),radial-gradient(circle_at_50%_85%,rgba(34,211,238,0.15),transparent_60%)]" />
-      {/* Subtle grid overlay */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:60px_60px]" />
+      {/* Enhanced grid overlay - more visible */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.15] bg-[linear-gradient(to_right,rgba(255,255,255,0.25)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.25)_1px,transparent_1px)] [background-size:40px_40px]" />
+      {/* Diagonal accent lines */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(-45deg,rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:80px_80px]" />
       {/* Mobile backdrop */}
       {isMobile && sidebarOpen && (
         <div 

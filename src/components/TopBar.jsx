@@ -15,7 +15,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const [unreadCount] = useState(2);
 
   return (
-    <header className="glass-card border-b border-border/50 px-6 py-4">
+    <header className="sticky top-0 z-50 glass-card border-b border-border/50 px-6 py-4 backdrop-blur-xl">
       <div className="flex items-center justify-between">
         {/* Left section */}
         <div className="flex items-center space-x-4">

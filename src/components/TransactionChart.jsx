@@ -55,10 +55,21 @@ export default function TransactionChart({ transactions }) {
 
   const maxValue = useMemo(() => {
     if (!chartData.length) return 100;
-    const max = Math.max(...chartData.flatMap(d => [d.income, d.expenses]));
-    // ensure chart has a reasonable scale even when numbers are small
-    if (isNaN(max) || max === 0) return 100;
-    return Math.max(max * 1.2, 50);
+    const values = chartData.flatMap(d => [d.income, d.expenses]).filter(v => v > 0);
+    if (!values.length) return 100;
+    
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    
+    // Smart scaling based on data range
+    if (max <= 10) return Math.ceil(max * 1.5);
+    if (max <= 100) return Math.ceil(max * 1.3);
+    if (max <= 1000) return Math.ceil(max * 1.2);
+    
+    // For larger values, use a more sophisticated scaling
+    const magnitude = Math.pow(10, Math.floor(Math.log10(max)));
+    const scaledMax = Math.ceil(max / magnitude) * magnitude;
+    return Math.max(scaledMax * 1.1, min * 2);
   }, [chartData]);
 
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -202,7 +213,7 @@ export default function TransactionChart({ transactions }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="glass-card p-6"
+      className="pro-card p-6"
     >
       <div className="flex items-center justify-between mb-6">
         <div>

@@ -12,26 +12,28 @@ export default function BalanceCard({ balance, income, expenses }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="balance-card p-6"
+      className="balance-card p-6 relative overflow-hidden"
     >
+      {/* Gradient overlay for enhanced visual appeal */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 relative z-10">
         <div>
-          <h3 className="text-foreground/90 text-sm font-medium">Total Balance</h3>
-          <p className="text-xs text-foreground/70">Current account balance</p>
+          <h3 className="text-white/95 text-sm font-medium">Total Balance</h3>
+          <p className="text-xs text-white/75">Current account balance</p>
         </div>
-  <div className="w-10 h-10 bg-card/20 rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
           <DollarSign className="w-5 h-5 text-white" />
         </div>
       </div>
 
       {/* Balance Amount */}
-      <div className="mb-6">
+      <div className="mb-6 relative z-10">
         <motion.h2
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-2"
+          className="text-3xl sm:text-4xl font-heading font-bold text-white mb-3 drop-shadow-sm"
         >
           {formatCurrency(balance, 'INR')}
         </motion.h2>
@@ -50,23 +52,27 @@ export default function BalanceCard({ balance, income, expenses }) {
       </div>
 
       {/* Income & Expenses */}
-      <div className="grid grid-cols-2 gap-4">
-  <div className="bg-card/10 rounded-lg p-4">
-          <div className="flex items-center space-x-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-green-300" />
-            <span className="text-foreground/90 text-sm">Income</span>
+      <div className="grid grid-cols-2 gap-4 relative z-10">
+        <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border border-white/20">
+          <div className="flex items-center space-x-2 mb-3">
+            <div className="w-8 h-8 bg-green-400/20 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-green-300" />
+            </div>
+            <span className="text-white/90 text-sm font-medium">Income</span>
           </div>
-          <p className="text-foreground font-semibold">
+          <p className="text-white font-semibold text-lg">
             {formatCurrency(incomeAmount, 'INR')}
           </p>
         </div>
 
-  <div className="bg-card/10 rounded-lg p-4">
-          <div className="flex items-center space-x-2 mb-2">
-            <TrendingDown className="w-4 h-4 text-red-300" />
-            <span className="text-foreground/90 text-sm">Expenses</span>
+        <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border border-white/20">
+          <div className="flex items-center space-x-2 mb-3">
+            <div className="w-8 h-8 bg-red-400/20 rounded-lg flex items-center justify-center">
+              <TrendingDown className="w-4 h-4 text-red-300" />
+            </div>
+            <span className="text-white/90 text-sm font-medium">Expenses</span>
           </div>
-          <p className="text-foreground font-semibold">
+          <p className="text-white font-semibold text-lg">
             {formatCurrency(expenseAmount, 'INR')}
           </p>
         </div>

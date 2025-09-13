@@ -94,22 +94,22 @@ export default function Dashboard() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-4"
           >
             {quickStats.map((stat) => (
-              <div
+              <motion.div
                 key={stat.label}
-                className="relative group rounded-xl p-[1px] bg-gradient-to-br from-indigo-500/40 via-violet-500/30 to-fuchsia-600/40 hover:from-indigo-400/60 hover:via-violet-400/50 hover:to-fuchsia-500/60 transition-colors"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="pro-card p-5 group cursor-pointer"
               >
-                <div className="glass-card rounded-xl h-full p-4 flex items-center">
-                  <div className="flex items-center space-x-3 w-full">
-                    <div className="p-2 rounded-lg bg-white/10 group-hover:bg-white/15 transition-colors">
-                      <stat.icon className={`w-5 h-5 ${stat.color}`} />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xs uppercase tracking-wide text-muted">{stat.label}</p>
-                      <p className="font-semibold text-foreground mt-0.5">{stat.value}</p>
-                    </div>
+                <div className="flex items-center space-x-4 w-full">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 group-hover:from-primary/30 group-hover:to-accent/30 transition-all duration-300">
+                    <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground opacity-80">{stat.label}</p>
+                    <p className="font-bold text-foreground mt-1 text-lg">{stat.value}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -122,7 +122,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="glass-card p-6 mb-6"
+            className="pro-card p-6 mb-6"
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading font-semibold text-foreground">
@@ -203,7 +203,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="glass-card p-6 mb-12"
+            className="pro-card p-6 mb-12"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
@@ -237,7 +237,7 @@ export default function Dashboard() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
-              className="glass-card p-6 flex items-center justify-center min-h-[163.5px] rounded-2xl -mt-8 relative z-10"
+              className="pro-card p-6 flex items-center justify-center min-h-[163.5px] rounded-2xl -mt-8 relative z-10"
             >
               {/* Add your video/component or content here */}
               <span className="text-muted">Custom Rectangle Card</span>
