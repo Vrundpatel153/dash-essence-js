@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Plus, Bell, User, LogOut, Sun, Moon, AlarmClock } from 'lucide-react';
+import { Menu, Plus, User, LogOut, Sun, Moon, AlarmClock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from 'next-themes';
 import { createPortal } from 'react-dom';
+import NotificationBell from './notifications/NotificationBell';
 
 export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const { currentUser, logout } = useAuth();
@@ -14,8 +15,6 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const location = useLocation();
   const userButtonRef = useRef(null);
   const [buttonRect, setButtonRect] = useState(null);
-  // Basic unread indicator stub (could be replaced by context/state later)
-  const [unreadCount] = useState(2);
 
   useEffect(() => {
     if (showUserMenu && userButtonRef.current) {
@@ -104,20 +103,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
           </button>
 
           {/* Notifications */}
-          <button
-            onClick={() => {
-              if (location.pathname !== '/app/notifications') navigate('/app/notifications');
-            }}
-            className="p-2 rounded-lg hover:bg-card/5 transition-colors relative"
-            title="Notifications"
-          >
-            <Bell className="w-5 h-5 text-muted" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-primary text-[10px] leading-4 font-medium text-white rounded-full flex items-center justify-center">
-                {unreadCount}
-              </span>
-            )}
-          </button>
+          <NotificationBell />
 
           {/* User Menu */}
           <div className="relative">

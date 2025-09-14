@@ -5,10 +5,19 @@ import Sidebar from './Sidebar';
 import TopBar from './TopBar';
 import { toast } from '../hooks/use-toast';
 import { safeLocalStorageGet } from '../seed/seedData';
+import { useWelcomeNotification } from '../hooks/useWelcomeNotification';
+import { useWeeklySummary } from '../hooks/useWeeklySummary';
+import { useSpendingLimitCheck } from '../hooks/useSpendingLimitCheck';
+import { useNotifications } from '../context/NotificationContext';
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isMobile = useIsMobile();
+  
+  // Initialize notification hooks
+  useWelcomeNotification();
+  useWeeklySummary();
+  useSpendingLimitCheck();
 
   useEffect(() => {
     function handleBalance(e) {
