@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Menu, Plus, Bell, User, LogOut, Sun, Moon, AlarmClock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from 'next-themes';
+import { createPortal } from 'react-dom';
 
 export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const { currentUser, logout } = useAuth();
@@ -11,8 +12,33 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const userButtonRef = useRef(null);
+  const [buttonRect, setButtonRect] = useState(null);
   // Basic unread indicator stub (could be replaced by context/state later)
   const [unreadCount] = useState(2);
+
+  useEffect(() => {
+    if (showUserMenu && userButtonRef.current) {
+      const rect = userButtonRef.current.getBoundingClientRect();
+      setButtonRect(rect);
+    }
+  }, [showUserMenu]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userButtonRef.current && !userButtonRef.current.contains(event.target)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    if (showUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
 
   return (
     <header className="sticky top-0 z-[100] glass-card border-b border-border/50 px-6 py-4 backdrop-blur-xl">
@@ -96,6 +122,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
           {/* User Menu */}
           <div className="relative">
             <button
+              ref={userButtonRef}
               onClick={() => setShowUserMenu(!showUserMenu)}
               className="flex items-center space-x-2 p-2 rounded-lg hover:bg-card/5 transition-colors"
             >
@@ -107,14 +134,19 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
               </span>
             </button>
 
-            <AnimatePresence>
-              {showUserMenu && (
+            {showUserMenu && buttonRect && createPortal(
+              <AnimatePresence>
                 <motion.div
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 top-full mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-[99999] bg-background backdrop-blur-sm"
+                  className="fixed w-48 glass-card border border-border/50 rounded-lg shadow-lg bg-background backdrop-blur-sm"
+                  style={{
+                    top: buttonRect.bottom + 8,
+                    right: window.innerWidth - buttonRect.right,
+                    zIndex: 999999,
+                  }}
                 >
                   <div className="p-2">
                       <Link
@@ -138,8 +170,9 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                       </button>
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
+              </AnimatePresence>,
+              document.body
+            )}
           </div>
         </div>
       </div>
