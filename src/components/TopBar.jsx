@@ -114,7 +114,7 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="fixed right-6 mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-[9999] bg-background/95 backdrop-blur-sm"
+                  className="absolute right-0 top-full mt-2 w-48 glass-card border border-border/50 rounded-lg shadow-lg z-[99999] bg-background backdrop-blur-sm"
                 >
                   <div className="p-2">
                       <Link
