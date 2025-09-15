@@ -8,8 +8,34 @@ import { toast } from 'sonner';
 // Currency selection removed – app locked to INR.
 
 export default function ProfilePage() {
-  const { currentUser, updateProfile } = useAuth();
+  const { currentUser, updateProfile, changePassword } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [pwLoading, setPwLoading] = useState(false);
+  // Password change form state
+  const [pwForm, setPwForm] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPwLoading(true);
+    if (pwForm.newPassword !== pwForm.confirmPassword) {
+      toast.error('New passwords do not match');
+      setPwLoading(false);
+      return;
+    }
+    const result = await changePassword(pwForm.oldPassword, pwForm.newPassword);
+    if (result.success) {
+      toast.success('Password changed successfully!');
+      setShowPasswordForm(false);
+      setPwForm({ oldPassword: '', newPassword: '', confirmPassword: '' });
+    } else {
+      toast.error(result.error || 'Failed to change password');
+    }
+    setPwLoading(false);
+  };
 
   const {
     register,
@@ -19,22 +45,19 @@ export default function ProfilePage() {
     defaultValues: {
       name: currentUser?.name || '',
       email: currentUser?.email || '',
-  // currency fixed to INR
-  preferredCurrency: 'INR',
+      // currency fixed to INR
+      preferredCurrency: 'INR',
     },
   });
 
   const onSubmit = async (data) => {
     setLoading(true);
-    
     const result = await updateProfile(data);
-    
     if (result.success) {
       toast.success('Profile updated successfully!');
     } else {
       toast.error(result.error || 'Failed to update profile');
     }
-    
     setLoading(false);
   };
 
@@ -186,12 +209,62 @@ export default function ProfilePage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-foreground">Password</p>
-              <p className="text-sm text-muted">Last updated 3 months ago</p>
+              <p className="text-sm text-muted">Keep your account secure</p>
             </div>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
-              Change Password
+            <button
+              type="button"
+              className="text-primary hover:text-primary/80 text-sm font-medium transition-colors"
+              onClick={() => setShowPasswordForm((v) => !v)}
+            >
+              {showPasswordForm ? 'Cancel' : 'Change Password'}
             </button>
           </div>
+          {showPasswordForm && (
+            <form className="mt-4 space-y-4" onSubmit={handlePasswordChange}>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Current Password</label>
+                <input
+                  type="password"
+                  className="block w-full px-3 py-2 bg-input border border-border/50 rounded-lg text-foreground"
+                  value={pwForm.oldPassword}
+                  onChange={e => setPwForm(f => ({ ...f, oldPassword: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">New Password</label>
+                <input
+                  type="password"
+                  className="block w-full px-3 py-2 bg-input border border-border/50 rounded-lg text-foreground"
+                  value={pwForm.newPassword}
+                  onChange={e => setPwForm(f => ({ ...f, newPassword: e.target.value }))}
+                  minLength={8}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Confirm New Password</label>
+                <input
+                  type="password"
+                  className="block w-full px-3 py-2 bg-input border border-border/50 rounded-lg text-foreground"
+                  value={pwForm.confirmPassword}
+                  onChange={e => setPwForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                  minLength={8}
+                  required
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  disabled={pwLoading}
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-600 hover:brightness-110 disabled:opacity-50 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow shadow-fuchsia-600/30"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{pwLoading ? 'Saving...' : 'Save Password'}</span>
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </motion.div>
     </div>

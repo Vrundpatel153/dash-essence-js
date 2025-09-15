@@ -16,12 +16,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Clear existing session to show landing page on fresh start
-    // Comment out the lines below if you want to persist login sessions
-    // const savedUser = safeLocalStorageGet(STORAGE_KEYS.CURRENT_USER);
-    // if (savedUser) {
-    //   setCurrentUser(savedUser);
-    // }
+    // Load existing session so data persists across reloads
+    const savedUser = safeLocalStorageGet(STORAGE_KEYS.CURRENT_USER);
+    if (savedUser) {
+      setCurrentUser(savedUser);
+    }
     setLoading(false);
   }, []);
 
@@ -148,6 +147,27 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Change password method
+  const changePassword = async (oldPassword, newPassword) => {
+    try {
+      if (!currentUser) throw new Error('No user logged in');
+      const users = safeLocalStorageGet(STORAGE_KEYS.USERS, []);
+      const userIndex = users.findIndex(u => u.id === currentUser.id);
+      if (userIndex === -1) throw new Error('User not found');
+      if (users[userIndex].password !== oldPassword) {
+        throw new Error('Current password is incorrect');
+      }
+      if (newPassword.length < 8) {
+        throw new Error('Password must be at least 8 characters');
+      }
+      users[userIndex].password = newPassword;
+      safeLocalStorageSet(STORAGE_KEYS.USERS, users);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };
+
   const value = {
     currentUser,
     loading,
@@ -155,6 +175,7 @@ export function AuthProvider({ children }) {
     signup,
     logout,
     updateProfile,
+    changePassword,
   };
 
   if (loading) {

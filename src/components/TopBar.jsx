@@ -14,6 +14,8 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
   const navigate = useNavigate();
   const location = useLocation();
   const userButtonRef = useRef(null);
+  const userMenuRef = useRef(null);
+  const interactionRef = useRef(false);
   const [buttonRect, setButtonRect] = useState(null);
 
   useEffect(() => {
@@ -25,19 +27,27 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (userButtonRef.current && !userButtonRef.current.contains(event.target)) {
+      // If we're interacting inside the menu, don't close it
+      if (interactionRef.current) return;
+      const clickTarget = event.target;
+      const clickedTrigger = userButtonRef.current?.contains(clickTarget);
+      const clickedMenu = userMenuRef.current?.contains(clickTarget);
+      if (!clickedTrigger && !clickedMenu) {
         setShowUserMenu(false);
       }
     };
 
     if (showUserMenu) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [showUserMenu]);
+
+  // Hide theme toggle on landing page
+  const isLandingPage = location.pathname === '/';
 
   return (
     <header className="sticky top-0 z-[100] glass-card border-b border-border/50 px-6 py-4 backdrop-blur-xl">
@@ -78,17 +88,19 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
             <Plus className="w-5 h-5" />
           </Link>
 
-          {/* Theme Toggle */}
-          <button 
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-lg hover:bg-card/5 transition-colors"
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-muted" />
-            ) : (
-              <Moon className="w-5 h-5 text-muted" />
-            )}
-          </button>
+          {/* Theme Toggle (hidden on landing page) */}
+          {!isLandingPage && (
+            <button 
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded-lg hover:bg-card/5 transition-colors"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-muted" />
+              ) : (
+                <Moon className="w-5 h-5 text-muted" />
+              )}
+            </button>
+          )}
 
 
           {/* Reminder Alarm Icon */}
@@ -123,6 +135,9 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
             {showUserMenu && buttonRect && createPortal(
               <AnimatePresence>
                 <motion.div
+                  ref={userMenuRef}
+                  onMouseDown={() => { interactionRef.current = true; }}
+                  onMouseUp={() => { setTimeout(() => { interactionRef.current = false; }, 0); }}
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -131,25 +146,30 @@ export default function TopBar({ onSidebarToggle, sidebarOpen }) {
                   style={{
                     top: buttonRect.bottom + 8,
                     right: window.innerWidth - buttonRect.right,
-                    zIndex: 999999,
+                    zIndex: 1000001,
                   }}
                 >
                   <div className="p-2">
-                      <Link
-                        to="/app/profile"
-                        onClick={() => setShowUserMenu(false)}
+                      <button
+                        onClick={() => {
+                          navigate('/app/profile');
+                          setTimeout(() => setShowUserMenu(false), 100);
+                        }}
                         className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-foreground hover:bg-card/5 rounded-md transition-colors"
+                        data-testid="go-to-profile"
                       >
                         <User className="w-4 h-4" />
                         <span>Go to Profile</span>
-                      </Link>
+                      </button>
 
                       <button
                         onClick={() => {
-                          setShowUserMenu(false);
                           logout();
+                          navigate('/auth/login');
+                          setTimeout(() => setShowUserMenu(false), 100);
                         }}
                         className="flex items-center space-x-2 w-full px-3 py-2 mt-1 text-sm text-foreground hover:bg-card/5 rounded-md transition-colors"
+                        data-testid="sign-out"
                       >
                         <LogOut className="w-4 h-4" />
                         <span>Sign out</span>

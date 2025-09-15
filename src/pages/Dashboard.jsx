@@ -231,18 +231,7 @@ export default function Dashboard() {
               Edit Profile
             </Link>
           </motion.div>
-          {/* Rectangle card at the bottom right for custom content */}
-          <div className="mt-1 mb-1">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="pro-card p-6 flex items-center justify-center min-h-[163.5px] rounded-2xl -mt-8 relative z-10"
-            >
-              {/* Add your video/component or content here */}
-              <span className="text-muted">Custom Rectangle Card</span>
-            </motion.div>
-          </div>
+          {/* Custom rectangle card removed as requested */}
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import {
   CheckCircle,
   ArrowRight
 } from 'lucide-react';
+import { useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import { Button } from '../components/ui/button';
 
 const features = [
@@ -68,6 +70,10 @@ const stats = [
 ];
 
 export default function LandingPage() {
+  const { setTheme } = useTheme();
+  useEffect(() => {
+    setTheme('dark');
+  }, [setTheme]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0b0f17] via-[#0d1421] to-[#121b2d] text-foreground">
       {/* Navigation */}

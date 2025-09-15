@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { ArrowLeft, DollarSign, Calendar, Tag, CreditCard, FileText } from 'lucide-react';
+import { ArrowLeft, IndianRupee, Calendar, Tag, CreditCard, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { 
   getTransaction, 
@@ -161,7 +161,7 @@ export default function TransactionForm() {
                 <div className="p-4 border border-border/50 rounded-lg cursor-pointer transition-all peer-checked:border-red-400 peer-checked:bg-red-400/10 hover:border-border">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center">
-                      <DollarSign className="w-4 h-4 text-red-400" />
+                      <IndianRupee className="w-4 h-4 text-red-400" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Expense</p>
@@ -181,7 +181,7 @@ export default function TransactionForm() {
                 <div className="p-4 border border-border/50 rounded-lg cursor-pointer transition-all peer-checked:border-green-400 peer-checked:bg-green-400/10 hover:border-border">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
-                      <DollarSign className="w-4 h-4 text-green-400" />
+                      <IndianRupee className="w-4 h-4 text-green-400" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Income</p>
@@ -203,7 +203,7 @@ export default function TransactionForm() {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <DollarSign className="w-5 h-5 text-muted" />
+                <IndianRupee className="w-5 h-5 text-muted" />
               </div>
               <input
                 {...register('amountMinor', {

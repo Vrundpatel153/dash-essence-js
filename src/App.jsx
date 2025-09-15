@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { NotificationProvider } from "./context/NotificationContext";
 import { seedDataIfNeeded } from "./seed/seedData";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage";
@@ -85,19 +86,21 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <BrowserRouter>
-            <AppRoutes />
-            <Toaster 
-              position="bottom-right"
-              toastOptions={{
-                style: {
-                  background: 'hsl(var(--navy-surface))',
-                  color: 'hsl(var(--text-primary))',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                },
-              }}
-            />
-          </BrowserRouter>
+          <NotificationProvider>
+            <BrowserRouter>
+              <AppRoutes />
+              <Toaster 
+                position="bottom-right"
+                toastOptions={{
+                  style: {
+                    background: 'hsl(var(--navy-surface))',
+                    color: 'hsl(var(--text-primary))',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                  },
+                }}
+              />
+            </BrowserRouter>
+          </NotificationProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

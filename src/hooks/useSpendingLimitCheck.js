@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
-import { safeLocalStorageGet } from '../seed/seedData';
+import { getTransactions } from '../utils/transactionUtils';
 
 export const useSpendingLimitCheck = () => {
   const { currentUser } = useAuth();
@@ -21,8 +21,8 @@ export const useSpendingLimitCheck = () => {
   const calculateCurrentBalance = (transactions) => {
     return transactions.reduce((balance, transaction) => {
       return transaction.type === 'income' 
-        ? balance + transaction.amount
-        : balance - transaction.amount;
+        ? balance + (transaction.amountMinor || 0)
+        : balance - (transaction.amountMinor || 0);
     }, 0);
   };
 
@@ -32,14 +32,14 @@ export const useSpendingLimitCheck = () => {
     
     return transactions
       .filter(t => t.type === 'expense' && new Date(t.date) >= startOfMonth)
-      .reduce((total, t) => total + t.amount, 0);
+      .reduce((total, t) => total + (t.amountMinor || 0), 0);
   };
 
   useEffect(() => {
     if (!currentUser) return;
 
     const checkSpendingLimits = () => {
-      const transactions = safeLocalStorageGet(`transactions_${currentUser.id}`, []);
+      const transactions = getTransactions(currentUser.id);
       const totalSpending = calculateTotalSpending(transactions);
       
       const spendingLimitReminders = reminders.filter(
@@ -74,13 +74,11 @@ export const useSpendingLimitCheck = () => {
     // Check on mount and when reminders change
     checkSpendingLimits();
     
-    // Listen for custom events from transaction forms
-    window.addEventListener('transactionAdded', handleTransactionChange);
-    window.addEventListener('transactionUpdated', handleTransactionChange);
+  // React to balanceUpdated which is dispatched after saveTransaction/update
+  window.addEventListener('balanceUpdated', handleTransactionChange);
     
     return () => {
-      window.removeEventListener('transactionAdded', handleTransactionChange);
-      window.removeEventListener('transactionUpdated', handleTransactionChange);
+      window.removeEventListener('balanceUpdated', handleTransactionChange);
     };
   }, [currentUser, reminders, addNotification]);
 };

@@ -21,15 +21,58 @@ export const NotificationProvider = ({ children }) => {
   // Load notifications and reminders from localStorage
   useEffect(() => {
     if (currentUser) {
-      const savedNotifications = localStorage.getItem(`notifications_${currentUser.id}`);
-      const savedReminders = localStorage.getItem(`reminders_${currentUser.id}`);
-      
+      const userNotifKey = `notifications_${currentUser.id}`;
+      const userRemKey = `reminders_${currentUser.id}`;
+      const legacyNotifKey = `notifications_null`;
+      const legacyRemKey = `reminders_null`;
+
+      let savedNotifications = localStorage.getItem(userNotifKey);
+      let savedReminders = localStorage.getItem(userRemKey);
+
+      let loadedNotifications = [];
       if (savedNotifications) {
-        setNotifications(JSON.parse(savedNotifications));
+        loadedNotifications = JSON.parse(savedNotifications);
       }
-      
+      // Migrate legacy notifications if present (from previous provider mismatch)
+      if ((!loadedNotifications || loadedNotifications.length === 0) && localStorage.getItem(legacyNotifKey)) {
+        try {
+          const legacy = JSON.parse(localStorage.getItem(legacyNotifKey) || '[]');
+          if (legacy && legacy.length) {
+            loadedNotifications = legacy.slice(0, MAX_NOTIFICATIONS);
+            localStorage.setItem(userNotifKey, JSON.stringify(loadedNotifications));
+            localStorage.removeItem(legacyNotifKey);
+          }
+        } catch {}
+      }
+      // If no notifications, seed a default one with a route
+      if (!loadedNotifications || loadedNotifications.length === 0) {
+        loadedNotifications = [{
+          id: `notif_seeded_${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          read: false,
+          type: 'reminder',
+          title: 'Welcome! Try the Open button',
+          message: 'This is a sample notification. Click Open to visit the notifications page.',
+          route: '/app/notifications',
+        }];
+        localStorage.setItem(userNotifKey, JSON.stringify(loadedNotifications));
+      }
+      setNotifications(loadedNotifications);
+
+      // Reminders (with migration)
       if (savedReminders) {
         setReminders(JSON.parse(savedReminders));
+      } else if (localStorage.getItem(legacyRemKey)) {
+        try {
+          const legacy = JSON.parse(localStorage.getItem(legacyRemKey) || '[]');
+          if (legacy && legacy.length) {
+            setReminders(legacy);
+            localStorage.setItem(userRemKey, JSON.stringify(legacy));
+            localStorage.removeItem(legacyRemKey);
+          }
+        } catch {
+          setReminders([]);
+        }
       }
     }
   }, [currentUser]);

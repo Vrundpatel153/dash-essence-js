@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Bell, X, Check, CheckCheck, Trash2 } from 'lucide-react';
+import { Bell, X, Check, CheckCheck, Trash2, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '../../context/NotificationContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
@@ -7,6 +8,7 @@ import { createPortal } from 'react-dom';
 export default function NotificationBell() {
   const { notifications, getUnreadCount, markAsRead, markAllAsRead, deleteNotification, clearAllNotifications } = useNotifications();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const unreadCount = getUnreadCount();
 
   const formatTime = (timestamp) => {
@@ -82,6 +84,16 @@ export default function NotificationBell() {
                         title="Mark all as read"
                       >
                         <CheckCheck className="w-4 h-4 text-muted" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setIsOpen(false);
+                          navigate('/app/notifications');
+                        }}
+                        className="p-1.5 rounded-md hover:bg-card/10 transition-colors"
+                        title="Open notifications page"
+                      >
+                        <ArrowRight className="w-4 h-4 text-muted" />
                       </button>
                       <button
                         onClick={clearAllNotifications}

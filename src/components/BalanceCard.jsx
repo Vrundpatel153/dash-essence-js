@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { TrendingUp, TrendingDown, IndianRupee } from 'lucide-react';
 import { formatCurrency } from '../utils/transactionUtils';
 
 export default function BalanceCard({ balance, income, expenses }) {
@@ -23,7 +23,7 @@ export default function BalanceCard({ balance, income, expenses }) {
           <p className="text-xs text-white/75">Current account balance</p>
         </div>
         <div className="w-12 h-12 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
-          <DollarSign className="w-5 h-5 text-white" />
+          <IndianRupee className="w-5 h-5 text-white" />
         </div>
       </div>
 

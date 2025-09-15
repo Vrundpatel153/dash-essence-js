@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNotifications } from '../../context/NotificationContext';
 import { useAuth } from '../../context/AuthContext';
-import { Plus, Trash2, Edit, Clock, DollarSign, MessageSquare } from 'lucide-react';
+import { Plus, Trash2, Edit, Clock, IndianRupee, MessageSquare } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
@@ -120,7 +120,7 @@ export default function ReminderManager() {
   const getReminderIcon = (type) => {
     switch (type) {
       case 'spending_limit':
-        return <DollarSign className="w-4 h-4" />;
+        return <IndianRupee className="w-4 h-4" />;
       case 'daily':
         return <Clock className="w-4 h-4" />;
       case 'custom':
@@ -160,10 +160,10 @@ export default function ReminderManager() {
                   value={formData.type} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, type: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background/95 border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background/95 border-border shadow-lg">
                     <SelectItem value="spending_limit">Spending Limit Alert</SelectItem>
                     <SelectItem value="daily">Daily Spending Reminder</SelectItem>
                     <SelectItem value="custom">Custom Reminder</SelectItem>
@@ -238,10 +238,10 @@ export default function ReminderManager() {
                   value={formData.deliveryMethod} 
                   onValueChange={(value) => setFormData(prev => ({ ...prev, deliveryMethod: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background/95 border-border">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-background/95 border-border shadow-lg">
                     <SelectItem value="in_app">In-App Only</SelectItem>
                     <SelectItem value="email">In-App + Email</SelectItem>
                     <SelectItem value="sms">In-App + SMS</SelectItem>
